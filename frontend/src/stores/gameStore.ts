@@ -6,7 +6,7 @@ import type { EngineEvent, EngineState } from '@engine'
 import { canPlayCard, getDrawValue, generateFullDeck, shuffleDeck, DEFAULT_STACKING_MODE } from '@engine'
 import {
     BOT_LADDER, botById, dailyBot, warmUp, chooseSwapTarget, chooseWildColor, chooseDiscardAllTop,
-    chooseRouletteColor, wantsSwap, willCatchMercy,
+    chooseRouletteColor, willCatchMercy,
     type BotProfile,
 } from '@engine/bot'
 import { chooseBotCard } from '@engine/botSearch'
@@ -80,7 +80,7 @@ export const useGameStore = defineStore('game', () => {
     // a bot may catch them (~70%). Penalty is a brutal draw 10 (No Mercy).
     const catchableId = ref<string | null>(null)
     let catchTimer: ReturnType<typeof setTimeout> | null = null
-    const UNO_PENALTY = 10
+    const UNO_PENALTY = 2 // official: caught without calling UNO = draw 2
 
     // Re-entrancy guard. Set when a play/draw is in flight so rapid clicks don't queue
     // up actions while bot delays / draw cascades / animations are still resolving.
@@ -732,7 +732,8 @@ export const useGameStore = defineStore('game', () => {
             profileFor(bot),
             hostRng,
         )
-        if (target && wantsSwap(bot, target, profileFor(bot), hostRng)) swapHands(target.id)
+        // The 7-swap is mandatory: the bot only chooses WHO.
+        if (target) swapHands(target.id)
         else skipSwap()
     }
 

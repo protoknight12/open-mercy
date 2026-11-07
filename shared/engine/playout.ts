@@ -153,8 +153,8 @@ export function step(g: Playout): boolean {
         }
         case 'CHOOSING_PLAYER_TO_SWAP': {
             const ev: EngineEvent[] = []
-            if (seat.wantsSwap(s, p, opp, rng)) engine.swapHands(s, opp.id, ev)
-            else engine.skipSwap(s, ev)
+            // The 7-swap is mandatory (official rules).
+            if (!engine.swapHands(s, opp.id, ev)) engine.skipSwap(s, ev)
             applyEvents(g, ev)
             break
         }

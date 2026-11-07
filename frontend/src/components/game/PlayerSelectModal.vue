@@ -6,7 +6,7 @@
         <h3 class="select-title">SWAP HANDS</h3>
       </header>
 
-      <p class="select-desc">Pick a player to swap your hand with.</p>
+      <p class="select-desc">You played a 7: you must swap your hand with another player.</p>
 
       <ul class="players-list">
         <li v-for="player in eligiblePlayers" :key="player.id">
@@ -21,8 +21,9 @@
         </li>
       </ul>
 
-      <Button variant="ghost" size="md" block @click="$emit('skip')">
-        KEEP MY HAND
+      <!-- The swap is mandatory; this only appears if nobody is left to swap with. -->
+      <Button v-if="eligiblePlayers.length === 0" variant="ghost" size="md" block @click="$emit('skip')">
+        CONTINUE
       </Button>
     </div>
   </Modal>

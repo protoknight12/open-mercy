@@ -179,11 +179,11 @@ describe('dirRegister', () => {
             status: 'pwned', junk: 'x'.repeat(100_000),
         }, NOW)
         const e = dir.ABCDEF as DirEntry & { junk?: string }
-        expect(e.players).toBe(20)
+        expect(e.players).toBe(6)
         expect(e.connected).toBe(0)
         expect(e.seatsFree).toBeUndefined()
         expect(e.mode!.length).toBeLessThanOrEqual(16)
-        expect(e.skins).toHaveLength(20)
+        expect(e.skins).toHaveLength(6)
         expect(e.status).toBeUndefined()
         expect(e.junk).toBeUndefined()
     })

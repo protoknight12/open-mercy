@@ -10,16 +10,16 @@
 
       <div class="rules-body">
         <p class="rules-goal">
-          Be the first to empty your hand. Open Mercy is brutal — penalties stack high
-          and if you ever hold <strong>25 cards</strong>, you're <strong>eliminated</strong>.
+          Be the first to empty your hand, or be the last player standing. Penalties stack high,
+          and if you ever hold <strong>25 cards</strong> you are <strong>knocked out</strong>. Tables seat 2 to 6.
         </p>
 
         <section class="rules-section">
           <h3 class="rules-subhead">BASICS</h3>
           <ul class="rules-list">
             <li>Play a card that matches the <strong>color</strong> or the <strong>number/symbol</strong> on the pile.</li>
-            <li>Can't play? <strong>Draw</strong> from the deck. If the drawn card is playable it plays automatically.</li>
-            <li>Down to one card? <strong>Call MERCY!</strong> — forget and you're penalized.</li>
+            <li>No match? <strong>Draw until you draw a card you can play</strong>, then it is played for you.</li>
+            <li>Down to one card? <strong>Call MERCY!</strong> If someone catches you first, you draw 2.</li>
           </ul>
         </section>
 
@@ -31,18 +31,18 @@
             <li><span class="chip">SKIP</span> <span>Skip the next player's turn.</span></li>
             <li><span class="chip">REV</span> <span>Reverse the direction of play.</span></li>
             <li><span class="chip">SKIP ALL</span> <span><strong>Skip everyone</strong> — you immediately play again.</span></li>
-            <li><span class="chip">DISCARD ALL</span> <span>Dump <strong>every card of that color</strong> from your hand at once.</span></li>
-            <li><span class="chip chip-num">7</span> <span><strong>Swap hands</strong> with any player you choose.</span></li>
+            <li><span class="chip">DISCARD ALL</span> <span>Every other card of that color in your hand goes <strong>under</strong> it. The Discard All stays on top.</span></li>
+            <li><span class="chip chip-num">7</span> <span>You <strong>must swap hands</strong> with a player you choose.</span></li>
             <li><span class="chip chip-num">0</span> <span><strong>Everyone passes</strong> their whole hand in the direction of play.</span></li>
             <li><span class="chip chip-wild">ROULETTE</span> <span><strong>Wild Color Roulette.</strong> The victim calls a color, then draws until they hit it. Could be one card — could be ten.</span></li>
-            <li><span class="chip chip-wild">WILD +4 REV</span> <span>Reverse direction <em>and</em> hit the next player with +4.</span></li>
+            <li><span class="chip chip-wild">WILD +4 REV</span> <span>Reverse direction <em>and</em> hit the next player with +4. With two players it comes back to you, so stack or take it.</span></li>
           </ul>
         </section>
 
         <section class="rules-section rules-section--last">
           <h3 class="rules-subhead">STACKING RULES</h3>
           <ul class="rules-list">
-            <li><strong>Official</strong> — stack a draw card only on an equal or higher value.</li>
+            <li><strong>Official</strong> (default) — stack a draw card only on an equal or higher value.</li>
             <li><strong>House</strong> — wild draws (+4/+6/+10) stack on anything; colored draws stay strict.</li>
             <li><strong>Casual</strong> — anything goes, any draw stacks on any draw.</li>
           </ul>

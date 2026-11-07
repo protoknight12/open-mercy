@@ -1,6 +1,6 @@
-/** Room capacity, enforced at the door. The product claim ("2 to 20
+/** Room capacity, enforced at the door. The product claim ("2 to 6
  * players") lives in frontend copy; this is the only place it's real. */
-export const MAX_PLAYERS = 20
+export const MAX_PLAYERS = 6
 
 /** A returning player always gets their seat back — the cap only stops
  * strangers from squeezing into a full room. */

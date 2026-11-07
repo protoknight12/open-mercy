@@ -6,7 +6,9 @@ import {
     playCard,
     rouletteDrawStep,
     finishRouletteTurn,
-    selectDiscardAllTop,
+    drawFirstDiscard,
+    swapHands,
+    skipSwap,
     drawCardToHand,
     eliminatePlayer,
 } from '../engine'
@@ -47,12 +49,20 @@ describe('deck composition', () => {
         const deck = generateFullDeck()
         expect(deck.length).toBe(168)
         const breakdown = getDeckBreakdown(deck)
-        expect(breakdown['number-0']).toBe(4)
+        // Official HVW18 mix.
+        expect(breakdown['number-0']).toBe(8)
         expect(breakdown['number-5']).toBe(8)
-        expect(breakdown['skipEveryone-red']).toBe(3)
+        expect(breakdown['skip-red']).toBe(3)
+        expect(breakdown['reverse-red']).toBe(3)
+        expect(breakdown['draw2-green']).toBe(3)
         expect(breakdown['discardAll-blue']).toBe(3)
-        expect(breakdown['wild-wild']).toBe(4)
-        expect(breakdown['wildColorRoulette-wild']).toBe(4)
+        expect(breakdown['draw4-yellow']).toBe(2)
+        expect(breakdown['skipEveryone-red']).toBe(2)
+        expect(breakdown['wild-wild']).toBeUndefined()
+        expect(breakdown['wildReverseDraw4-wild']).toBe(8)
+        expect(breakdown['draw6-wild']).toBe(4)
+        expect(breakdown['draw10-wild']).toBe(4)
+        expect(breakdown['wildColorRoulette-wild']).toBe(8)
     })
 })
 
@@ -100,7 +110,7 @@ describe('playCard', () => {
         expect(s.players[2]!.hand.map(c => c.id)).toEqual(['c-a'])
     })
 
-    it('applies the top card effect on a single-match Discard All', () => {
+    it('buries matching cards under a Discard All without firing their effects', () => {
         const discallRed = card('c-da', 'red', 'discardAll')
         const redReverse = card('c-rr', 'red', 'reverse')
         const blue3 = card('c-b3', 'blue', 'number', 3)
@@ -110,11 +120,15 @@ describe('playCard', () => {
 
         playCard(s, 'p-0', 'c-da')
 
-        expect(s.direction).toBe(-1)
+        // Official: extra cards go UNDER the Discard All, which stays on top.
+        expect(s.direction).toBe(1)
+        expect(s.discardPile.map(c => c.id)).toEqual(['c-red-5', 'c-rr', 'c-da'])
         expect(s.players[0]!.hand.map(c => c.id)).toEqual(['c-b3'])
+        expect(s.currentPlayerIndex).toBe(1)
+        expect(s.turnState).toBe('WAITING_FOR_ACTION')
     })
 
-    it('wins through the picker when a Discard All empties the hand', () => {
+    it('wins when a Discard All empties the hand', () => {
         const discallRed = card('c-da', 'red', 'discardAll')
         const r3 = card('c-r3', 'red', 'number', 3)
         const r9 = card('c-r9', 'red', 'number', 9)
@@ -122,16 +136,9 @@ describe('playCard', () => {
             players: [player('p-0', 'You', [discallRed, r3, r9]), player('p-1', 'B1')],
         })
 
-        // Multiple matches without a host pick → picker state (the top-card
-        // choice is the player's), never a silent resolve.
         playCard(s, 'p-0', 'c-da')
-        expect(s.turnState).toBe('CHOOSING_DISCARD_ALL_TOP')
-
-        // Resolving empties the hand → immediate win, no stranded turn.
-        selectDiscardAllTop(s, 'c-r3')
         expect(s.winnerId).toBe('p-0')
         expect(s.gameState).toBe('GAME_OVER')
-        expect(s.pendingDiscardAllCards).toEqual([])
     })
 
     it('advances the turn when a Discard All matches nothing else in hand', () => {
@@ -165,7 +172,7 @@ describe('playCard', () => {
         expect(s.gameState).toBe('GAME_OVER')
     })
 
-    it('enters the picker state on a multi-match Discard All without a pick', () => {
+    it('never opens a top-card picker on a multi-match Discard All', () => {
         const discallRed = card('c-da', 'red', 'discardAll')
         const r3 = card('c-r3', 'red', 'number', 3)
         const r9 = card('c-r9', 'red', 'number', 9)
@@ -176,16 +183,87 @@ describe('playCard', () => {
 
         const res = playCard(s, 'p-0', 'c-da')
 
-        expect(s.turnState).toBe('CHOOSING_DISCARD_ALL_TOP')
-        expect(s.pendingDiscardAllCards.map(c => c.id).sort()).toEqual(['c-r3', 'c-r9'])
-        expect(res.events.some(e => e.t === 'CHOOSE_DISCARD_ALL_TOP')).toBe(true)
-
-        // Resolving via the picker passes the turn with the chosen top applied.
-        selectDiscardAllTop(s, 'c-r9')
         expect(s.turnState).toBe('WAITING_FOR_ACTION')
+        expect(res.events.some(e => e.t === 'CHOOSE_DISCARD_ALL_TOP')).toBe(false)
         expect(s.currentPlayerIndex).toBe(1)
-        expect(s.discardPile[s.discardPile.length - 1]!.id).toBe('c-r9')
+        expect(s.discardPile[s.discardPile.length - 1]!.id).toBe('c-da')
         expect(s.players[0]!.hand.map(c => c.id)).toEqual(['c-b3'])
+        // The UNO catch window still opens when the dump leaves one card.
+        expect(res.events.some(e => e.t === 'AT_ONE_UNCALLED')).toBe(true)
+    })
+
+    it('2 players: Wild Reverse Draw 4 skips the opponent and the +4 lands on the player', () => {
+        const wr4 = card('c-wr4', 'wild', 'wildReverseDraw4')
+        const s = makeState({
+            players: [player('p-0', 'You', [wr4, red5, red5]), player('p-1', 'B1', [red5])],
+        })
+
+        playCard(s, 'p-0', 'c-wr4', { selectedColor: 'blue' })
+
+        expect(s.currentPlayerIndex).toBe(0)
+        expect(s.drawStack).toBe(4)
+        expect(s.currentColor).toBe('blue')
+    })
+
+    it('3+ players: Wild Reverse Draw 4 reverses and the next player faces +4', () => {
+        const wr4 = card('c-wr4', 'wild', 'wildReverseDraw4')
+        const s = makeState({
+            players: [player('p-0', 'You', [wr4, red5]), player('p-1', 'B1'), player('p-2', 'B2')],
+        })
+
+        playCard(s, 'p-0', 'c-wr4', { selectedColor: 'green' })
+
+        expect(s.direction).toBe(-1)
+        expect(s.currentPlayerIndex).toBe(2)
+        expect(s.drawStack).toBe(4)
+    })
+})
+
+describe('official setup and special rules', () => {
+    it('flips past action and wild cards for the opening discard', () => {
+        const s = makeState({
+            players: [player('p-0', 'You'), player('p-1', 'B1')],
+            discardPile: [],
+            deck: [card('n', 'green', 'number', 4), card('s', 'red', 'skip'), card('w', 'wild', 'draw10'), card('d', 'blue', 'draw2')],
+        })
+        // A fixed rng still terminates: ignored cards go back and get reshuffled.
+        const first = drawFirstDiscard(s, [], () => 0.5)
+
+        expect(first?.type).toBe('number')
+        expect(s.drawStack).toBe(0)
+        expect(s.currentPlayerIndex).toBe(0)
+        expect(s.direction).toBe(1)
+        expect(s.deck).toHaveLength(3)
+    })
+
+    it('makes the 7-swap mandatory', () => {
+        const s = makeState({
+            players: [player('p-0', 'You', [card('a', 'red', 'number', 1)]), player('p-1', 'B1', [red5, red5])],
+            turnState: 'CHOOSING_PLAYER_TO_SWAP',
+            swapInitiatorId: 'p-0',
+        })
+        const ev: EngineEvent[] = []
+
+        expect(skipSwap(s, ev)).toBe(false)
+        expect(s.turnState).toBe('CHOOSING_PLAYER_TO_SWAP')
+        expect(swapHands(s, 'p-0', ev)).toBe(false)
+        expect(swapHands(s, 'p-1', ev)).toBe(true)
+        expect(s.players[0]!.hand).toHaveLength(2)
+        expect(s.currentPlayerIndex).toBe(1)
+    })
+
+    it('sets a knocked-out hand aside under the discard pile', () => {
+        const big = Array.from({ length: 24 }, (_, i) => card(`h${i}`, 'blue', 'number', 1))
+        const s = makeState({
+            players: [player('p-0', 'You', big), player('p-1', 'B1', [red5]), player('p-2', 'B2', [red5])],
+            deck: [card('x', 'green', 'number', 2)],
+        })
+
+        drawCardToHand(s, 'p-0', [])
+
+        expect(s.players[0]!.isEliminated).toBe(true)
+        expect(s.discardPile[s.discardPile.length - 1]!.id).toBe('c-red-5')
+        expect(s.discardPile).toHaveLength(26)
     })
 
     it('keeps the turn after Skip Everyone and reports PLAY_AGAIN', () => {

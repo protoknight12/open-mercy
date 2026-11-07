@@ -49,6 +49,7 @@ export {
     rotateActiveHands,
     swapHands,
     skipSwap,
+    swapTargets,
     setRouletteColor,
     rouletteDrawStep,
     finishRouletteTurn,

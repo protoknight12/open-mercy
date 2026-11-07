@@ -1,5 +1,4 @@
 import type { Card, CardColor, EngineEvent, EngineState, Player, Rng } from './types'
-import { shuffleDeck } from './deck'
 import {
     calculateNextPlayerIndex,
     calculateScore,
@@ -39,11 +38,20 @@ export function drawCardToHand(s: EngineState, playerId: string, ev: EngineEvent
     return card
 }
 
+/**
+ * Official Mercy rule: a knocked-out hand is "set aside until the deck runs out
+ * and needs to be reshuffled". Tucking it under the discard pile does exactly
+ * that: it never changes the top card, and the next reshuffle takes it back in.
+ */
+function setAsideHand(s: EngineState, hand: Card[]): void {
+    if (hand.length) s.discardPile.unshift(...hand)
+}
+
 /** Eliminates the player if they crossed the mercy threshold; ends the game if one player remains. */
 export function checkMercyElimination(s: EngineState, player: Player, ev: EngineEvent[]): boolean {
     if (!checkMercyRule(player.hand.length)) return false
     player.isEliminated = true
-    s.discardPile.push(...player.hand)
+    setAsideHand(s, player.hand)
     player.hand = []
     ev.push({ t: 'ELIMINATED', playerId: player.id })
 
@@ -64,7 +72,7 @@ export function eliminatePlayer(s: EngineState, playerId: string, ev: EngineEven
     if (!player || player.isEliminated) return false
     const hadTurn = currentPlayer(s)?.id === playerId
     player.isEliminated = true
-    s.discardPile.push(...player.hand)
+    setAsideHand(s, player.hand)
     player.hand = []
     ev.push({ t: 'ELIMINATED', playerId: player.id })
 
@@ -164,21 +172,7 @@ export function playCard(s: EngineState, playerId: string, cardId: string, opts:
         s.currentColor = card.color
     }
 
-    // Counted before the effect runs, and after the played card is already out
-    // of the hand: a Discard All whose colour is unique in the hand has nothing
-    // left to dump, and handleDiscardAll is then a no-op.
-    const discardAllMatches = card.type === 'discardAll'
-        ? player.hand.filter(c => c.color === card.color).length
-        : 0
-
     applyCardEffect(s, card, ev, opts)
-
-    // DiscardAll fully owns its own resolution (discard + top-card effect +
-    // win/advance) inside applyCardEffect. Bail so the generic post-play logic
-    // below doesn't double-process it — but ONLY when it actually had matches.
-    // With zero matches it resolved nothing, so falling through is what keeps
-    // the turn from stranding and still lets it count as a winning last card.
-    if (card.type === 'discardAll' && discardAllMatches > 0) return { ok: true, events: ev }
 
     // Going out wins for EVERY card type, roulette included. A missed UNO call
     // is punished only through the catch window opened by AT_ONE_UNCALLED
@@ -257,43 +251,35 @@ export function applyCardEffect(s: EngineState, card: Card, ev: EngineEvent[], o
     }
 }
 
-function handleReverse(s: EngineState, card: Card, ev: EngineEvent[]): void {
-    const isTwoPlayer = s.players.length === 2
+function handleReverse(s: EngineState, _card: Card, ev: EngineEvent[]): void {
+    // "Two players" means two still in the game: a 4-seat table with two
+    // knocked out plays exactly like a heads-up game.
+    const isTwoPlayer = s.players.filter(p => !p.isEliminated).length === 2
+    s.direction = s.direction === 1 ? -1 : 1
     if (isTwoPlayer) {
-        if (card.type === 'reverse') {
-            // Reverse acts as Skip in 2p
-            advanceTurn(s, ev)
-        }
-        // Wild Reverse Draw 4 in 2p: just reverse direction, penalty goes to opponent
-        s.direction = s.direction === 1 ? -1 : 1
-    } else {
-        s.direction = s.direction === 1 ? -1 : 1
+        // Reverse acts as a Skip. Wild Reverse Draw 4 also skips the other
+        // player, so the +4 lands back on whoever played it (they may stack
+        // to send it back) — official HVW18 wording.
+        advanceTurn(s, ev)
     }
 }
 
-function handleDiscardAll(s: EngineState, card: Card, ev: EngineEvent[], opts: PlayCardOpts): void {
+/**
+ * Official Discard All: every other card in the hand of the Discard All's
+ * colour is placed UNDER it. The Discard All stays on top and none of the
+ * buried cards' effects fire. playCard then handles win / UNO / advance as
+ * for any other card.
+ */
+function handleDiscardAll(s: EngineState, card: Card, _ev: EngineEvent[], _opts: PlayCardOpts): void {
     const player = currentPlayer(s)
     if (!player) return
 
     const toDiscard = player.hand.filter(c => c.color === card.color)
     if (toDiscard.length === 0) return
 
-    // No choice to make (single match) or the host already picked (bot policy):
-    // resolve through the SAME path as the picker so the top card's effect fires.
-    if (toDiscard.length === 1 || opts.discardAllTopPickId) {
-        const topChoice = toDiscard.length === 1
-            ? toDiscard[0]!
-            : (toDiscard.find(c => c.id === opts.discardAllTopPickId) ?? toDiscard[0]!)
-        s.pendingDiscardAllCards = toDiscard
-        s.turnState = 'CHOOSING_DISCARD_ALL_TOP'
-        resolveDiscardAllTop(s, toDiscard, topChoice, ev, opts.rng ?? Math.random)
-        return
-    }
-
-    // 2+ matches and no pick: enter picker state, host shows the chooser.
-    s.pendingDiscardAllCards = toDiscard
-    s.turnState = 'CHOOSING_DISCARD_ALL_TOP'
-    ev.push({ t: 'CHOOSE_DISCARD_ALL_TOP', playerId: player.id })
+    player.hand = player.hand.filter(c => c.color !== card.color)
+    const topIdx = s.discardPile.length - 1
+    s.discardPile.splice(Math.max(0, topIdx), 0, ...toDiscard)
 }
 
 function executeDiscardAll(s: EngineState, cards: Card[], top: Card): void {
@@ -368,22 +354,29 @@ export function swapHands(s: EngineState, targetPlayerId: string, ev: EngineEven
     if (s.turnState !== 'CHOOSING_PLAYER_TO_SWAP') return false
     const initiator = s.players.find(p => p.id === s.swapInitiatorId)
     const target = s.players.find(p => p.id === targetPlayerId)
-    let swapped = false
-    // Never swap with an eliminated seat — it holds an empty hand, so the swap
-    // would hand the initiator a 0-card "win" and revive the dead seat.
-    if (initiator && target && !target.isEliminated) {
-        const temp = [...initiator.hand]
-        initiator.hand = [...target.hand]
-        target.hand = temp
-        swapped = true
-    }
+    // The swap is mandatory, so a bad target (self, unknown, or an eliminated
+    // seat holding an empty hand) is rejected and the choice stays open.
+    if (!initiator || !target || target.id === initiator.id || target.isEliminated) return false
+    const temp = [...initiator.hand]
+    initiator.hand = [...target.hand]
+    target.hand = temp
     s.turnState = 'WAITING_FOR_ACTION'
     advanceTurn(s, ev)
-    return swapped
+    return true
 }
 
+/** Players the 7-swap initiator may pick. */
+export function swapTargets(s: EngineState): Player[] {
+    return s.players.filter(p => p.id !== s.swapInitiatorId && !p.isEliminated)
+}
+
+/**
+ * Official rule: when you play a 7 you MUST swap. Skipping is only accepted
+ * when nobody is left to swap with, so a stale client can't dodge it.
+ */
 export function skipSwap(s: EngineState, ev: EngineEvent[]): boolean {
     if (s.turnState !== 'CHOOSING_PLAYER_TO_SWAP') return false
+    if (swapTargets(s).length > 0) return false
     s.turnState = 'WAITING_FOR_ACTION'
     advanceTurn(s, ev)
     return true
@@ -452,38 +445,23 @@ export function penalizeUnoDraws(s: EngineState, playerId: string, count: number
 }
 
 /**
- * Draw the opening discard (reshuffling wilds back in) and apply its effect
- * per UNO rules: skip/reverse act on the first player, draw cards start a stack.
+ * Draw the opening discard. Only a number card can open (official setup),
+ * so no opening effect ever applies.
  */
 export function drawFirstDiscard(s: EngineState, ev: EngineEvent[], rng: Rng = Math.random): Card | undefined {
+    // Official setup: "If this card is an Action Card, ignore it and flip over
+    // the next card." Wilds are action cards too, so only a number card opens.
+    // Ignored cards go to the bottom of the deck, so every card is looked at
+    // once at most and this always ends, whatever the shuffle.
     let firstCard = drawCardFromDeck(s, ev, rng)
-    while (firstCard?.type === 'wild' || firstCard?.color === 'wild') {
-        s.deck.push(firstCard)
-        s.deck = shuffleDeck(s.deck, rng)
+    let guard = s.deck.length
+    while (firstCard && firstCard.type !== 'number' && guard-- > 0) {
+        s.deck.unshift(firstCard)
         firstCard = drawCardFromDeck(s, ev, rng)
     }
     if (!firstCard) return undefined
 
     s.discardPile.push(firstCard)
     s.currentColor = firstCard.color
-
-    if (firstCard.type === 'skip') {
-        // First player is skipped
-        advanceTurn(s, ev)
-    } else if (firstCard.type === 'reverse') {
-        // Reverse direction (in 2-player, first player gets skipped)
-        if (s.players.length === 2) {
-            advanceTurn(s, ev)
-        } else {
-            s.direction = -1
-        }
-    } else if (firstCard.type === 'draw2') {
-        s.drawStack = 2
-    } else if (firstCard.type === 'draw4') {
-        s.drawStack = 4
-    }
-    // skipEveryone: all players skipped — dealer plays again (no-op since they start)
-    // discardAll: first player may discard matching color cards on their turn
-
     return firstCard
 }

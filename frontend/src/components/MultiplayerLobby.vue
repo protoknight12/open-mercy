@@ -904,7 +904,7 @@ const friendlyError = computed(() => {
   const map: Record<string, string> = {
     'Game not found': "That room code didn't match any game. Double-check it and try again.",
     'Game already started': 'That game already kicked off. Ask the host for a new room, or start your own.',
-    'Game is full (max 20 players)': 'That room is full (20 players max). Start your own instead.',
+    'Game is full (max 6 players)': 'That room is full (6 players max). Start your own instead.',
   }
   if (map[e]) return map[e]
   if (/full/i.test(e)) return 'That room is full. Start your own instead.'

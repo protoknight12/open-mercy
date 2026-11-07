@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     q: 'How many players are supported?',
-    a: 'Each game supports 2 to 20 players.',
+    a: 'Each game supports 2 to 6 players.',
   },
   {
     q: 'Does the game work on mobile?',

@@ -17,36 +17,33 @@ export function generateFullDeck(): Card[] {
     const deck: Card[] = []
     const colors: CardColor[] = ['red', 'blue', 'green', 'yellow']
 
+    // Official 168-card deck (HVW18). Per colour: two of every number 0-9,
+    // Skip / Reverse / Draw 2 / Discard All x3, Draw 4 / Skip Everyone x2.
     colors.forEach(color => {
-        // Number Cards: 0 (1 of each), 1-9 (2 of each)
-        deck.push(createCard(color, 'number', 0))
-        for (let i = 1; i <= 9; i++) {
-            deck.push(createCard(color, 'number', i))
-            deck.push(createCard(color, 'number', i))
+        for (let n = 0; n <= 9; n++) {
+            deck.push(createCard(color, 'number', n))
+            deck.push(createCard(color, 'number', n))
         }
-
-        // Action Cards: 3 of each per color (Total 72)
         for (let i = 0; i < 3; i++) {
             deck.push(createCard(color, 'skip'))
             deck.push(createCard(color, 'reverse'))
             deck.push(createCard(color, 'draw2'))
+            deck.push(createCard(color, 'discardAll'))
+        }
+        for (let i = 0; i < 2; i++) {
             deck.push(createCard(color, 'draw4'))
             deck.push(createCard(color, 'skipEveryone'))
-            deck.push(createCard(color, 'discardAll'))
         }
     })
 
-    // Wild Cards: 4 plain wilds + special wilds
-    // Plain Wild cards (choose color, no penalty)
-    for (let i = 0; i < 4; i++) {
-        deck.push(createCard('wild', 'wild'))
-    }
-    // Special Wild cards: 4 of each type
-    for (let i = 0; i < 4; i++) {
+    // Wilds. There is no plain Wild in this ruleset.
+    for (let i = 0; i < 8; i++) {
         deck.push(createCard('wild', 'wildReverseDraw4'))
+        deck.push(createCard('wild', 'wildColorRoulette'))
+    }
+    for (let i = 0; i < 4; i++) {
         deck.push(createCard('wild', 'draw6'))
         deck.push(createCard('wild', 'draw10'))
-        deck.push(createCard('wild', 'wildColorRoulette'))
     }
 
     return deck

@@ -536,7 +536,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
                 }
                 if (msg.t === 'error' && (msg.code === 'unauthorized' || msg.code === 'room-not-found' || msg.code === 'room-full')) {
                     error.value = msg.code === 'room-not-found' ? ROOM_GONE
-                        : msg.code === 'room-full' ? 'Game is full (max 20 players)'
+                        : msg.code === 'room-full' ? 'Game is full (max 6 players)'
                         : 'Could not authenticate'
                     settle(false)
                 }

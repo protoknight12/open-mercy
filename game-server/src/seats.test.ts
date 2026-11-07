@@ -7,7 +7,7 @@ function rosterOf(n: number): Record<string, unknown> {
 
 describe('canSeat', () => {
     it('caps the room at MAX_PLAYERS', () => {
-        expect(MAX_PLAYERS).toBe(20)
+        expect(MAX_PLAYERS).toBe(6)
         expect(canSeat(rosterOf(MAX_PLAYERS), 'u-new')).toBe(false)
     })
 

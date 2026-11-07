@@ -23,7 +23,7 @@
           <h3 class="guide-sub">Ways to play</h3>
           <ul>
             <li><strong>Play vs bot</strong> - one computer opponent, a new one each time you win.</li>
-            <li><strong>CREATE GAME</strong> - a private room for up to 20 friends.</li>
+            <li><strong>CREATE GAME</strong> - a private room for up to 6 friends.</li>
             <li><strong>Quick match</strong> - join an open public room with strangers.</li>
             <li><strong>TODAY'S DEAL</strong> - you against the toughest bot, same cards for everyone.</li>
           </ul>

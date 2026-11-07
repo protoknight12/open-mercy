@@ -13,11 +13,11 @@ The ruleset popularized by Mattel's UNO Show 'Em No Mercy® never got a proper d
 ## What it does
 
 - **No login required** - click "Play Now" and you're in a game in seconds. Guest players get full access via anonymous auth.
-- **Real-time multiplayer** - create a room, share a code, play with 2-10 players. Works for guests and registered users alike.
+- **Real-time multiplayer** - create a room, share a code, play with 2-6 players. Works for guests and registered users alike.
 - **VS Bot** - single-player mode against an AI opponent
 - **Playable by AI agents** - the game exposes [WebMCP](#playing-as-an-ai-agent-webmcp) tools, so an AI agent can discover and play a seat just by visiting the page
 - **Full ruleset** - every card type implemented faithfully, including the brutal ones
-- **7-card swap is optional** - choose to swap hands or keep your own
+- **Official rules** - follows the published instruction sheet: mandatory 7-swap, Discard All buries its colour, 2-6 players
 - **Mobile responsive** - playable on phones (320px+), tablets, and desktops
 - **Password reset** - forgot password flow with email recovery
 - **Supabase backend** - auth (including anonymous), game state, and real-time sync via Supabase Realtime
@@ -31,8 +31,8 @@ The ruleset popularized by Mattel's UNO Show 'Em No Mercy® never got a proper d
 | Draw 6 / Draw 10 | Force massive draws (stackable) |
 | Reverse Draw 4 | Reverse direction AND +4 |
 | Color Roulette | Victim draws until they hit the chosen color |
-| Discard All | Play every card of the matching color at once |
-| 7 - Swap | Swap hands with any player (or keep your hand) |
+| Discard All | Every other card of that colour goes under it |
+| 7 - Swap | You must swap hands with a player of your choice |
 | 0 - Rotate | All hands rotate in play direction |
 
 ## Tech stack

@@ -265,9 +265,10 @@ describe('single-player rule fixes', () => {
 
         store.playCard('p-0', discallRed)
 
-        // The single matching red card (reverse) became the top and its effect
-        // fired — a 3-player reverse flips direction. Pre-fix it was dropped.
-        expect(store.direction).toBe(-1)
+        // Official Discard All: the red reverse goes UNDER the Discard All and
+        // its effect does not fire, so the direction is unchanged.
+        expect(store.direction).toBe(1)
+        expect(store.topCard?.id).toBe('c-da')
         // Both red cards were dumped; only the non-matching blue card remains.
         expect(store.players[0]!.hand.map(c => c.id)).toEqual(['c-b3'])
     })
@@ -497,6 +498,7 @@ describe('daily and ladder analytics', () => {
 
 describe('daily resume after a reload', () => {
     const today = '2026-08-10'
+    const catchSeed = '2026-08-12'
     const saved = new Map<string, string>()
     const tab = new Map<string, string>()
 
@@ -522,9 +524,9 @@ describe('daily resume after a reload', () => {
         vi.restoreAllMocks()
     })
 
-    async function startDaily() {
+    async function startDaily(seed = today) {
         const store = useGameStore()
-        store.initializeGame(['You', 'Terminator'], 'official', { dailySeed: today })
+        store.initializeGame(['You', 'Terminator'], 'official', { dailySeed: seed })
         await store.dealInitialCards(async () => {})
         await untilHumanInput(store)
         return store
@@ -670,7 +672,10 @@ describe('daily resume after a reload', () => {
 
     it('keeps a MERCY catch that landed before the reload', async () => {
         vi.spyOn(Math, 'random').mockReturnValue(0)
-        const store = await startDaily()
+        // A seed whose 70% pounce roll lands, so the catch is certain.
+        const seed = catchSeed
+        vi.setSystemTime(new Date(`${seed}T12:00:00`))
+        const store = await startDaily(seed)
         const human = store.players.find(p => !p.isBot)!
         const bot = store.players.find(p => p.isBot)!
         const plus10: Card = { id: 't-plus10', color: 'wild', type: 'draw10' }

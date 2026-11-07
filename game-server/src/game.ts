@@ -1,6 +1,6 @@
 import * as engine from '../../shared/engine'
 import type { Card, EngineEvent, EngineState, StackingMode } from '../../shared/engine'
-import { chooseCard, chooseDiscardAllTop, chooseSwapTarget, chooseWildColor, wantsSwap, type BotProfile } from '../../shared/engine/bot'
+import { chooseCard, chooseDiscardAllTop, chooseSwapTarget, chooseWildColor, type BotProfile } from '../../shared/engine/bot'
 import { MAX_TURN_TIMEOUTS, type GameEvent, type IntentAction, type PersonalView, type SnapshotPlayer } from './protocol'
 import { isWildColor } from './validate'
 
@@ -356,7 +356,11 @@ function obviousChoice(game: GameRecord, hand: Card[]): IntentAction | null {
     if (s.turnState === 'CHOOSING_DRAWN_WILD_COLOR' && game.pendingDrawnWildCardId) {
         return { kind: 'CHOOSE_DRAWN_WILD_COLOR', color: engine.getWildCardColor(hand) }
     }
-    if (s.turnState === 'CHOOSING_PLAYER_TO_SWAP') return { kind: 'SKIP_SWAP' }
+    if (s.turnState === 'CHOOSING_PLAYER_TO_SWAP') {
+        // Mandatory swap: the obvious pick is the smallest hand.
+        const target = [...engine.swapTargets(s)].sort((a, b) => a.hand.length - b.hand.length)[0]
+        return target ? { kind: 'SWAP_HANDS', targetUserId: target.id } : { kind: 'SKIP_SWAP' }
+    }
     if (s.turnState === 'CHOOSING_DISCARD_ALL_TOP' && s.pendingDiscardAllCards[0]) {
         return { kind: 'PICK_DISCARD_ALL_TOP', cardId: s.pendingDiscardAllCards[0].id }
     }
@@ -394,7 +398,7 @@ function autoPlayTurn(game: GameRecord, userId: string): GameEvent[] {
             action = card ? { kind: 'PLAY_CARD', cardId: card.id, chosenColor: color } : { kind: 'DRAW' }
         } else if (s.turnState === 'CHOOSING_PLAYER_TO_SWAP') {
             const target = chooseSwapTarget({ playable: [], drawStack: 0, opponents, self: me }, AUTOPLAY, Math.random)
-            action = target && wantsSwap(me, target, AUTOPLAY, Math.random)
+            action = target
                 ? { kind: 'SWAP_HANDS', targetUserId: target.id }
                 : { kind: 'SKIP_SWAP' }
         } else if (s.turnState === 'CHOOSING_DISCARD_ALL_TOP' && s.pendingDiscardAllCards.length) {
@@ -504,10 +508,10 @@ export async function persistResults(
     return true
 }
 
-/** Draw-10 penalty for a caught UNO miss. Window validation is the room's job. */
+/** Official draw-2 penalty for a caught UNO miss. Window validation is the room's job. */
 export function applyUnoCatch(game: GameRecord, targetUserId: string): GameEvent[] {
     const ev: EngineEvent[] = []
-    engine.penalizeUnoDraws(game.engine, targetUserId, 10, ev)
+    engine.penalizeUnoDraws(game.engine, targetUserId, 2, ev)
     return [{ t: 'UNO_PENALTY', playerId: targetUserId }, ...translateEngineEvents(ev)]
 }
 
