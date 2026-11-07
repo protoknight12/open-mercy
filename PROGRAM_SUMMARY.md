@@ -98,9 +98,13 @@ Wilds: Wild Reverse Draw 4 ×8, Wild Draw 6 ×4, Wild Draw 10 ×4, Wild Colour R
 - `composables/`: animation, sound, music, motion, presence and leaderboard data.
 - `data/changelog.ts` + `data/polls.ts`: the player-facing release notes and polls.
 - `mcp/`: WebMCP tools, so an AI agent can play a seat.
-- Styling: design tokens in `style.css` (`@theme` block: colours, spacing, radius,
-  shadows, motion, z-index). Shared game styles are in `assets/game-shared.css`.
-  The scoped component CSS reads those tokens.
+- Styling ("Sky Arena" theme): design tokens in `style.css` (`@theme` block: sky
+  and panel colours, candy accents, Lilita One / Nunito type, radius, chunky shadows,
+  motion, z-index). `theme-sky.css` re-skins the main panels and top bars. The table
+  theme is the last section of `assets/game-shared.css`: the lime hill, avatar-tile
+  seats, round HUD buttons and the round MERCY! button. Every dialog card gets the
+  glossy panel through `components/ui/Modal.vue`. Colour zones: yellow is
+  daily/streak, red is create/primary, aqua is multiplayer, and royal blue is neutral.
 
 ## Backend services
 
@@ -126,8 +130,24 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
 
 - Originally: Cloudflare Pages (repo root, output `frontend/dist`) + Pages Functions,
   with the game server deployed separately.
-- Vercel: see the Change log for the current state.
+- **Vercel** (current): `vercel.json` at the repo root builds `frontend/` into
+  `frontend/dist`, falls back to `index.html` for SPA routes, and sets the security
+  headers. `api/geo.ts` and `api/profile-og.ts` port the Pages Functions to edge
+  functions (`/p/<code>` rewrites to the latter). Set `VITE_SUPABASE_URL` and
+  `VITE_SUPABASE_ANON_KEY` in the Vercel project. The game server is still a
+  Cloudflare Worker (`VITE_GAME_SERVER_URL`).
+- The host redirects in `functions/_middleware.js` were specific to open-mercy.com
+  and are not ported.
 
 ## Change log
 
 - **2026-11-07**: Created this summary.
+- **2026-11-07**: Rules now match the official HVW18 sheet: the deck mix; number-only
+  opening card; Discard All buries its colour; with 2 players Wild Reverse Draw 4
+  returns to the player; the Mercy hand is set aside; the 7-swap is mandatory; the UNO
+  penalty is 2; 2 to 6 seats. Tests updated and added (616 passing).
+- **2026-11-07**: Sky Arena visual overhaul across the app (tokens, buttons, modals,
+  table, card back, lobby and secondary pages).
+- **2026-11-07**: Loud changelog entry `2026-11-07` announcing the rules and the new look.
+- **2026-11-07**: Added the Vercel config and edge-function ports. New GitHub repo:
+  `protoknight12/open-mercy`.

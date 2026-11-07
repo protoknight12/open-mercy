@@ -61,6 +61,13 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
     {
+        id: '2026-11-07',
+        level: 'loud',
+        tag: 'IMPROVED',
+        title: 'Play by the official rules, in a new look',
+        body: 'The game now follows the printed rule sheet: a 7 always swaps hands, Discard All tucks its colour under it, and getting caught without calling MERCY costs 2 cards. The table has a bright new look too.',
+    },
+    {
         id: '2026-11-05',
         level: 'loud',
         tag: 'NEW',
