@@ -120,10 +120,10 @@ onUnmounted(() => {
   gap: var(--spacing-3);
   max-width: 90vw;
   padding: var(--spacing-6) var(--spacing-8);
-  background: rgba(10, 10, 11, 0.82);
+  background: rgba(23, 63, 158, 0.82);
   border: 1px solid color-mix(in srgb, var(--bu-color) 55%, transparent);
   border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55), 0 0 30px color-mix(in srgb, var(--bu-color) 25%, transparent);
+  box-shadow: 0 10px 40px rgba(13, 42, 107, 0.55), 0 0 30px color-mix(in srgb, var(--bu-color) 25%, transparent);
   backdrop-filter: blur(6px);
   text-align: center;
   will-change: transform, opacity;

@@ -516,8 +516,8 @@ function triggerPileFlash(color: string) {
   /* Fade the horizontal edges so clipped cards read as "more off-screen"
      rather than hard-cut. Vertical stays full-alpha so hover/arc lifts aren't
      touched. Scroll mode only — a fitted fan needs no cue. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #173f9e 22px, #173f9e calc(100% - 22px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #173f9e 22px, #173f9e calc(100% - 22px), transparent 100%);
 }
 .hand-scroller.scroll::-webkit-scrollbar { display: none; }
 
@@ -553,7 +553,7 @@ function triggerPileFlash(color: string) {
     transform: translateY(-40px) scale(1.12) !important;
   }
   .hand-card-wrapper:hover .hand-card {
-    box-shadow: 0 18px 28px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 18px 28px rgba(13, 42, 107, 0.55);
   }
 }
 
@@ -624,7 +624,7 @@ function triggerPileFlash(color: string) {
   align-items: center;
   gap: 10px;
   transform-origin: center bottom;
-  filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(0 22px 38px rgba(13, 42, 107, 0.7));
 }
 
 .peek-hint {
@@ -632,14 +632,14 @@ function triggerPileFlash(color: string) {
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   color: var(--text-secondary, #cbd5e1);
-  background: rgba(8, 10, 14, 0.88);
+  background: rgba(23, 63, 158, 0.88);
   padding: 4px 14px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   white-space: nowrap;
 }
 .peek-hint.playable {
-  color: #04121a;
+  color: #0d2a6b;
   background: var(--color-neon-blue, #2ad4ff);
   border-color: transparent;
   font-weight: 700;

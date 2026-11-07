@@ -339,7 +339,7 @@ onUnmounted(() => { if (ticker) clearInterval(ticker) })
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-void, #0a0a0a);
+  background: transparent;
 }
 
 .lb-topbar {
@@ -399,7 +399,7 @@ onUnmounted(() => { if (ticker) clearInterval(ticker) })
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--bg-void, #0a0a0a);
+  background: transparent;
   padding: var(--spacing-2) 0;
 }
 
@@ -497,7 +497,7 @@ onUnmounted(() => { if (ticker) clearInterval(ticker) })
   font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 700;
-  color: #0a0a0a;
+  color: #0d2a6b;
   background: rgba(255, 255, 255, 0.3);
   z-index: 1;
 }

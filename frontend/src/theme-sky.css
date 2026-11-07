@@ -1,0 +1,71 @@
+/* ==========================================================================
+   SKY ARENA — app-wide panel and chrome overrides.
+   Components were written for the old dark theme with their own scoped
+   panel styles. Rather than restyle each one, the panels players see most
+   are re-skinned here as glossy royal-blue cards with a white rim.
+   !important is deliberate: scoped rules carry an attribute selector and
+   load lazily, so they would otherwise win.
+   ========================================================================== */
+
+/* Glossy panel recipe, applied to the main cards on each screen. */
+.daily-card,
+.create-card,
+.mode-list,
+.landing-card,
+.lb-card,
+.lb-table,
+.board-card,
+.profile-card,
+.dossier-card,
+.stat-card,
+.friends-card,
+.badge-card,
+.changelog-entry,
+.auth-card,
+.reset-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 32%),
+    linear-gradient(180deg, var(--surface-metal) 0%, var(--surface-metal-dark) 100%) !important;
+  border: 3px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 5px 0 rgba(13, 42, 107, 0.45), 0 14px 28px rgba(13, 42, 107, 0.28) !important;
+}
+
+/* The daily card is the yellow zone: a sunny rim marks it out. */
+.daily-card {
+  border-color: var(--color-hazard) !important;
+  box-shadow: 0 5px 0 #c27a00, 0 0 0 3px rgba(255, 255, 255, 0.5), 0 14px 28px rgba(13, 42, 107, 0.28) !important;
+}
+
+/* Top bars: a glossy royal-blue strip with a white underline. */
+.lobby-top-bar,
+.landing-nav,
+.page-top-bar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, #2f6be0 0%, #1d4fbf 100%) !important;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 0 rgba(13, 42, 107, 0.35) !important;
+}
+
+.site-footer {
+  background: linear-gradient(180deg, #1d4fbf 0%, #143a8c 100%) !important;
+  border-top: 3px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Segmented toggles (rules mode, leaderboard tabs): chunky pills. */
+.mode-tip {
+  background: var(--surface-metal-dark) !important;
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* Form fields: white rounded inputs with ink text, the casual-game look. */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+textarea,
+select {
+  font-family: var(--font-body);
+}

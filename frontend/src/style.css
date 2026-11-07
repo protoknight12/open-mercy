@@ -11,28 +11,35 @@
    consumers. (Default @theme only emits variables referenced inside this
    file, which strips ~80% of our scale.) */
 @theme static {
-  /* Industrial chaos palette */
-  --bg-concrete: #0a0a0b;
-  --bg-concrete-light: #18191b;
-  --surface-metal: #1f2226;
-  --surface-metal-dark: #121416;
+  /* "Sky Arena" palette — bright casual-mobile look. The old token names are
+     kept so every existing rule picks the new colours up unchanged:
+     bg-* is the sky, surface-* the glossy royal-blue panels. */
+  --bg-concrete: #1a7fe0;
+  --bg-concrete-light: #4cc0ff;
+  --surface-metal: #2a5fd0;
+  --surface-metal-dark: #173f9e;
+  --surface-ink: #0d2a6b;          /* outlines and text shadows */
+  --surface-gloss: rgba(255, 255, 255, 0.22);
 
-  --color-hazard: #ffcc00;
-  --color-hazard-dim: #997a00;
-  --color-alert: #ff2a2a;
-  --color-alert-dim: #801515;
-  --color-neon-blue: #00f3ff;
-  --color-neon-green: #00ff66;
-  --color-neon-magenta: #ff66dd;
+  --color-hazard: #ffc928;         /* sunny yellow: daily / streak */
+  --color-hazard-dim: #d98e00;
+  --color-alert: #ff3d4f;          /* candy red: primary create action */
+  --color-alert-dim: #b3162a;
+  --color-neon-blue: #3fe0ff;      /* aqua: multiplayer */
+  --color-neon-green: #84dc3a;     /* lime: the table */
+  --color-neon-magenta: #ff6fd1;
+  --color-lime-dark: #3f9b1c;
+  --color-sky-top: #1676dc;
+  --color-sky-bottom: #6fd3ff;
 
-  --text-primary: #e6e6e6;
-  --text-secondary: #a1a1aa;
-  --text-muted: #808089;
+  --text-primary: #ffffff;
+  --text-secondary: #e2edff;
+  --text-muted: #b9cdf3;
 
-  /* Typography */
-  --font-display: 'Black Ops One', cursive;
-  --font-body: 'Chakra Petch', sans-serif;
-  --font-mono: 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+  /* Typography — chunky rounded display + friendly rounded body */
+  --font-display: 'Lilita One', 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --font-body: 'Nunito', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Nunito', 'Segoe UI', Roboto, sans-serif;
 
   /* Type scale */
   --text-xs: 0.75rem;
@@ -59,20 +66,22 @@
 
   /* Radius */
   --radius-none: 0;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
   --radius-pill: 9999px;
 
-  /* Elevation + neon glows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
-  --shadow-glow-red: 0 0 24px rgba(255, 42, 42, 0.4);
-  --shadow-glow-yellow: 0 0 24px rgba(255, 204, 0, 0.35);
-  --shadow-glow-cyan: 0 0 24px rgba(0, 243, 255, 0.4);
-  --shadow-glow-lime: 0 0 24px rgba(0, 255, 102, 0.4);
-  --shadow-glow-magenta: 0 0 24px rgba(255, 102, 221, 0.4);
+  /* Elevation: soft drop shadows plus the chunky "3D" bottom lip */
+  --shadow-sm: 0 2px 0 rgba(13, 42, 107, 0.35);
+  --shadow-md: 0 4px 0 rgba(13, 42, 107, 0.35), 0 8px 18px rgba(13, 42, 107, 0.25);
+  --shadow-lg: 0 6px 0 rgba(13, 42, 107, 0.35), 0 16px 34px rgba(13, 42, 107, 0.35);
+  --shadow-lip: 0 5px 0 rgba(13, 42, 107, 0.28);
+  --shadow-glow-red: 0 0 22px rgba(255, 61, 79, 0.55);
+  --shadow-glow-yellow: 0 0 22px rgba(255, 201, 40, 0.6);
+  --shadow-glow-cyan: 0 0 22px rgba(63, 224, 255, 0.55);
+  --shadow-glow-lime: 0 0 22px rgba(132, 220, 58, 0.6);
+  --shadow-glow-magenta: 0 0 22px rgba(255, 111, 209, 0.5);
+  --text-outline: 0 2px 0 var(--surface-ink), 0 0 6px rgba(13, 42, 107, 0.45);
 
   /* Motion duration + easing — these mirror useMotion.ts presets */
   --duration-snap: 180ms;
@@ -118,20 +127,34 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  /* Scratched metal / grain texture overlay would be great here */
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      rgba(0,0,0,0.05) 0px,
-      rgba(0,0,0,0.05) 2px,
-      transparent 2px,
-      transparent 8px
-    ),
-    radial-gradient(circle at center, var(--bg-concrete-light), var(--bg-concrete));
+  /* Open sky with a few soft clouds; fixed so long pages scroll over it. */
+  background-image:
+    radial-gradient(ellipse 22% 9% at 12% 18%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(ellipse 18% 7% at 20% 21%, rgba(255, 255, 255, 0.45), transparent 70%),
+    radial-gradient(ellipse 26% 10% at 84% 12%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(ellipse 20% 8% at 72% 30%, rgba(255, 255, 255, 0.3), transparent 70%),
+    linear-gradient(180deg, var(--color-sky-top) 0%, var(--bg-concrete-light) 60%, var(--color-sky-bottom) 100%);
+  background-attachment: fixed;
 }
 
 button {
   font-family: var(--font-body);
+}
+
+/* Display type reads as chunky sticker lettering: white with an ink lip. */
+h1, h2, h3,
+[class*="title"], [class*="brand"], [class*="heading"] {
+  text-shadow: var(--text-outline);
+}
+
+/* ==========================================================================
+   SKY ARENA PRIMITIVES — opt-in classes for glossy panels and buttons.
+   ========================================================================== */
+.sky-panel {
+  background: linear-gradient(180deg, var(--surface-metal) 0%, var(--surface-metal-dark) 100%);
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 2px 0 var(--surface-gloss), var(--shadow-lg);
 }
 
 /* Opt-in keyboard focus ring. Applied via v-focus-ring directive; no
@@ -291,4 +314,10 @@ button {
   .reset-container {
     animation: none;
   }
+}
+
+/* The glitch / flicker effects belonged to the old industrial theme. */
+.glitch-text::before,
+.glitch-text::after {
+  display: none !important;
 }

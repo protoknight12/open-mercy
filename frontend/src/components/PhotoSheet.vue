@@ -322,7 +322,7 @@ async function remove() {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-4);
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(13, 42, 107, 0.82);
   outline: none;
 }
 
@@ -336,7 +336,7 @@ async function remove() {
   max-height: 100%;
   overflow-y: auto;
   padding: var(--spacing-3) var(--spacing-6) var(--spacing-6);
-  background: #121416;
+  background: #173f9e;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   font-family: var(--font-body);
@@ -414,7 +414,7 @@ async function remove() {
   height: 296px;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: #000;
+  background: #173f9e;
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -435,7 +435,7 @@ async function remove() {
   height: 248px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 0 400px rgba(5, 5, 6, 0.72);
+  box-shadow: 0 0 0 400px rgba(23, 63, 158, 0.72);
   pointer-events: none;
 }
 .ps-hint {
@@ -448,7 +448,7 @@ async function remove() {
   gap: var(--spacing-2);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-pill);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(13, 42, 107, 0.6);
   font-size: var(--text-xs);
   color: var(--text-primary);
   white-space: nowrap;
@@ -487,7 +487,7 @@ async function remove() {
   gap: var(--spacing-2);
   padding: var(--spacing-1) var(--spacing-3) var(--spacing-1) var(--spacing-1);
   border-radius: var(--radius-pill);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .ps-chip-name {
@@ -521,7 +521,7 @@ async function remove() {
 .ps-btn--save {
   border: none;
   background: var(--text-primary);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
 }
 .ps-btn--save:hover:not(:disabled),
 .ps-btn--save:focus-visible {

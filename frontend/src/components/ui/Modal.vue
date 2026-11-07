@@ -100,7 +100,7 @@ onUnmounted(() => {
   inset: 0;
   /* No backdrop blur: blurring the whole page on open cost ~600 ms of
      tap-to-paint on a slowed phone CPU, and at 88% black it barely showed. */
-  background: rgba(0, 0, 0, 0.88);
+  background: radial-gradient(ellipse at center, rgba(22, 80, 190, 0.55), rgba(8, 28, 80, 0.82));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,6 +112,18 @@ onUnmounted(() => {
   .modal-overlay {
     padding: var(--spacing-2);
   }
+}
+
+/* Sky Arena: every dialog card, whatever component renders it, wears the
+   glossy royal-blue panel with a white rim. Modal cards were each written
+   with their own dark gradients, so the theme is applied here once. */
+.modal-shell > :deep(*) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 30%),
+    linear-gradient(180deg, var(--surface-metal) 0%, var(--surface-metal-dark) 100%) !important;
+  border: 3px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 6px 0 rgba(13, 42, 107, 0.45), 0 18px 40px rgba(5, 20, 60, 0.45) !important;
 }
 
 .modal-shell {

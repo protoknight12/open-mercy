@@ -168,7 +168,7 @@ onUnmounted(cancelClose)
     width: var(--emblem-size, 22px);
     height: var(--emblem-size, 22px);
     flex: none;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 1px 2px rgba(13, 42, 107, 0.5));
 }
 .badge--mark { --emblem-size: 22px; }
 .badge--chip { --emblem-size: 24px; }
@@ -232,14 +232,14 @@ onUnmounted(cancelClose)
 /* The last three ranks burn: a glow in the rank's own colour, and only the
    apex breathes. */
 .badge--ember .badge-emblem {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 6px var(--badge-color));
+    filter: drop-shadow(0 1px 2px rgba(13, 42, 107, 0.5)) drop-shadow(0 0 6px var(--badge-color));
 }
 .badge--apex .badge-emblem {
     animation: badge-ember 2.8s ease-in-out infinite;
 }
 @keyframes badge-ember {
-    0%, 100% { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 4px var(--badge-color)); }
-    50% { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 12px var(--badge-color)); }
+    0%, 100% { filter: drop-shadow(0 1px 2px rgba(13, 42, 107, 0.5)) drop-shadow(0 0 4px var(--badge-color)); }
+    50% { filter: drop-shadow(0 1px 2px rgba(13, 42, 107, 0.5)) drop-shadow(0 0 12px var(--badge-color)); }
 }
 @media (prefers-reduced-motion: reduce) {
     .badge--apex .badge-emblem { animation: none; }
@@ -297,7 +297,7 @@ onUnmounted(cancelClose)
 }
 .badge--link:hover .badge-emblem,
 .badge--link:focus-visible .badge-emblem {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 6px var(--badge-color));
+    filter: drop-shadow(0 1px 2px rgba(13, 42, 107, 0.55)) drop-shadow(0 0 6px var(--badge-color));
 }
 .badge--link:focus-visible {
     outline: 2px solid var(--badge-color);
@@ -314,10 +314,10 @@ onUnmounted(cancelClose)
     gap: 2px;
     padding: 8px 12px;
     min-width: 132px;
-    background: rgba(11, 11, 13, 0.97);
+    background: rgba(23, 63, 158, 0.97);
     border: 1px solid color-mix(in srgb, var(--badge-color) 50%, transparent);
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 30px rgba(13, 42, 107, 0.6);
     font-family: var(--font-mono);
     line-height: 1.35;
     white-space: nowrap;

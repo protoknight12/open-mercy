@@ -568,7 +568,7 @@ watch(() => props.code, (code) => {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-void, #0a0a0a);
+  background: transparent;
 }
 
 .pp-topbar {
@@ -763,13 +763,13 @@ watch(() => props.code, (code) => {
   gap: 10px;
   height: 44px;
   padding: 0 18px;
-  background: linear-gradient(180deg, #2a2d31 0%, #16181b 55%, #0e0f11 100%);
-  border: 1px solid #3a3e44;
+  background: linear-gradient(180deg, #2a5fd0 0%, #173f9e 55%, #173f9e 100%);
+  border: 1px solid #2a5fd0;
   border-radius: var(--radius-sm);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-    0 6px 18px rgba(0, 0, 0, 0.55);
+    inset 0 -1px 0 rgba(13, 42, 107, 0.6),
+    0 6px 18px rgba(13, 42, 107, 0.55);
   font-family: var(--font-display);
   font-size: 15px;
   letter-spacing: 0.12em;
@@ -788,8 +788,8 @@ watch(() => props.code, (code) => {
   transform: translateY(-1px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-    0 8px 22px rgba(0, 0, 0, 0.6);
+    inset 0 -1px 0 rgba(13, 42, 107, 0.6),
+    0 8px 22px rgba(13, 42, 107, 0.6);
 }
 
 .pp-friend:disabled { cursor: default; }
@@ -808,7 +808,7 @@ watch(() => props.code, (code) => {
   background: linear-gradient(180deg, #ffd633 0%, #ffcc00 45%, #e0a800 100%);
   border-color: #ffdf5e;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 204, 0, 0.25);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
 }
 
 .pp-friend--accept svg { color: var(--bg-concrete); }
@@ -957,12 +957,12 @@ watch(() => props.code, (code) => {
   right: calc(50% + 16px);
   width: calc(100% - 32px);
   height: 1px;
-  background: #3f3f46;
+  background: #4a7fe6;
 }
 
 /* The tier not yet taken: a dashed run-up to its own emblem, greyed out. */
 .pp-upgrade-link--pending {
-  background: repeating-linear-gradient(to right, #3f3f46 0 4px, transparent 4px 8px);
+  background: repeating-linear-gradient(to right, #4a7fe6 0 4px, transparent 4px 8px);
 }
 
 .pp-upgrade-mark--locked { filter: grayscale(1) brightness(0.6); }
@@ -1008,7 +1008,7 @@ watch(() => props.code, (code) => {
   align-items: center;
   gap: var(--spacing-3);
   padding: var(--spacing-2) var(--spacing-3);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(13, 42, 107, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
@@ -1091,7 +1091,7 @@ watch(() => props.code, (code) => {
     align-items: center;
     gap: var(--spacing-3);
     padding: var(--spacing-2) var(--spacing-3);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(13, 42, 107, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: var(--radius-sm);
     text-align: left;
@@ -1230,7 +1230,7 @@ watch(() => props.code, (code) => {
 .pp-rename-save {
   background: var(--color-hazard);
   border-color: var(--color-hazard);
-  color: #000;
+  color: #0d2a6b;
 }
 
 .pp-rename-btn:disabled { opacity: 0.5; cursor: default; }
@@ -1300,7 +1300,7 @@ watch(() => props.code, (code) => {
   align-items: center;
   gap: var(--spacing-4);
   padding: var(--spacing-6) var(--spacing-4);
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(13, 42, 107, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
 }
@@ -1333,7 +1333,7 @@ watch(() => props.code, (code) => {
 }
 .pp-photo-btn:hover,
 .pp-photo-btn:focus-visible {
-  background: #2a2d32;
+  background: #2a5fd0;
 }
 /* The shield rides the photo as its pip, so the full badge shows only its
    tier name and progress bar here. */
@@ -1408,7 +1408,7 @@ watch(() => props.code, (code) => {
   flex-direction: column;
   gap: var(--spacing-2);
   padding: var(--spacing-3);
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(13, 42, 107, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-sm);
 }

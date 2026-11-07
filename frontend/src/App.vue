@@ -449,7 +449,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
-  background: var(--bg-concrete);
+  background: transparent;
   color: var(--text-primary);
 }
 
@@ -470,7 +470,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
   align-items: center;
   gap: 1rem;
   padding: 0.7rem 0.85rem 0.7rem 1.25rem;
-  background: rgba(20, 0, 0, 0.92);
+  background: rgba(23, 63, 158, 0.92);
   border: 1px solid rgba(255, 42, 42, 0.65);
   border-radius: 12px;
   box-shadow: 0 8px 28px rgba(255, 42, 42, 0.35);
@@ -582,7 +582,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
   align-items: center;
   gap: var(--spacing-6);
   z-index: var(--z-toast);
-  background: var(--bg-concrete);
+  background: transparent;
 }
 
 .loading-brand {
@@ -652,13 +652,13 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
   align-items: center;
   z-index: var(--z-modal);
   padding: var(--spacing-4);
-  background: var(--bg-concrete);
+  background: transparent;
 }
 
 .reset-card {
   width: 100%;
   max-width: 440px;
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   padding: var(--spacing-8) var(--spacing-6);
@@ -722,7 +722,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
 .field-input {
   width: 100%;
   padding: var(--spacing-3) var(--spacing-4);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   font-family: var(--font-body);

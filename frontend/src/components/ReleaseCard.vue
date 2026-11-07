@@ -176,10 +176,10 @@ function go() {
   max-width: calc(100vw - var(--spacing-8));
   display: flex;
   flex-direction: column;
-  background: var(--surface-metal-dark, #121416);
+  background: var(--surface-metal-dark, #173f9e);
   border: 1px solid rgba(255, 204, 0, 0.3);
   border-radius: var(--radius-md);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 20px 60px rgba(13, 42, 107, 0.8);
   overflow: hidden;
 }
 
@@ -196,7 +196,7 @@ function go() {
   font-family: var(--font-display);
   font-size: var(--text-xs);
   letter-spacing: 0.2em;
-  color: var(--bg-concrete, #0a0a0b);
+  color: var(--bg-concrete, #0d2a6b);
 }
 
 .rc-close {
@@ -208,7 +208,7 @@ function go() {
   padding: 0;
   background: none;
   border: none;
-  color: var(--bg-concrete, #0a0a0b);
+  color: var(--bg-concrete, #0d2a6b);
   cursor: pointer;
 }
 
@@ -273,7 +273,7 @@ function go() {
   font-family: var(--font-display);
   font-size: var(--text-xs);
   letter-spacing: 0.14em;
-  color: var(--bg-concrete, #0a0a0b);
+  color: var(--bg-concrete, #0d2a6b);
   cursor: pointer;
 }
 

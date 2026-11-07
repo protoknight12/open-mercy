@@ -162,7 +162,7 @@ function onMusicVolume(e: Event) {
 .settings-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(13, 42, 107, 0.55);
   z-index: 200;
   display: flex;
   justify-content: flex-end;
@@ -172,7 +172,7 @@ function onMusicVolume(e: Event) {
   width: 100%;
   max-width: 360px;
   height: 100%;
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border-left: 1px solid rgba(255, 204, 0, 0.15);
   display: flex;
   flex-direction: column;
@@ -311,7 +311,7 @@ input[type="range"]:disabled { opacity: 0.4; }
 .seg:hover { border-color: rgba(255, 204, 0, 0.4); color: #e6e6e6; }
 .seg.active {
   border-color: #ffcc00;
-  color: #0a0a0b;
+  color: #0d2a6b;
   background: #ffcc00;
   font-weight: 600;
 }
@@ -319,7 +319,7 @@ input[type="range"]:disabled { opacity: 0.4; }
 .hint {
   margin-top: 0.6rem;
   font-size: 0.74rem;
-  color: #52525b;
+  color: #0d2a6b;
   letter-spacing: 0.04em;
   line-height: 1.5;
 }
@@ -330,7 +330,7 @@ input[type="range"]:disabled { opacity: 0.4; }
   margin: 0 0 0.35rem;
 }
 .about-line.subtle {
-  color: #52525b;
+  color: #0d2a6b;
   font-size: 0.72rem;
 }
 .about-line a {

@@ -69,7 +69,7 @@ const tickerText = computed(() => props.message || props.actionText || '')
   display: flex;
   justify-content: center;
   max-width: 100%;
-  height: 1rem;
+  height: 1.3rem;
 }
 
 /* Persistent, calm turn-ownership pill. Green when it's you, muted with a
@@ -79,22 +79,25 @@ const tickerText = computed(() => props.message || props.actionText || '')
   align-items: center;
   gap: 0.4rem;
   flex-shrink: 0;
-  padding: 0.2rem 0.7rem;
+  padding: 0.15rem 0.9rem;
   border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--text-secondary);
+  background: linear-gradient(180deg, #4d8dff 0%, #2552c4 100%);
+  border: 3px solid #fff;
+  box-shadow: 0 3px 0 #163a8e;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(13, 42, 107, 0.6);
 }
 
 .turn-indicator.mine {
-  background: rgba(0, 255, 102, 0.12);
-  border-color: rgba(0, 255, 102, 0.4);
-  color: #00ff66;
+  background: linear-gradient(180deg, #ffe066 0%, #ffb400 100%);
+  box-shadow: 0 3px 0 #c27a00, 0 0 18px rgba(255, 201, 40, 0.7);
+  color: #5a3300;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .turn-dot {
@@ -118,18 +121,22 @@ const tickerText = computed(() => props.message || props.actionText || '')
    (red) for urgent messages (roulette, swap, must-draw). */
 .ticker-text {
   min-width: 0;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
   color: var(--text-primary);
+  text-shadow: var(--text-outline);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ticker-text.alert {
-  color: var(--color-alert);
-  text-shadow: 0 0 10px rgba(255, 42, 42, 0.4);
+  color: #fff;
+  background: var(--color-alert);
+  border-radius: var(--radius-pill);
+  padding: 0 0.6rem;
+  text-shadow: 0 1px 0 #7d0d1d;
 }
 
 .ticker-text-enter-active, .ticker-text-leave-active {

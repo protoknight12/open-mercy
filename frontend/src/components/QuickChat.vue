@@ -213,7 +213,7 @@ onUnmounted(() => {
   height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(10, 10, 11, 0.85);
+  background: rgba(23, 63, 158, 0.85);
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -255,7 +255,7 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 14px;
   max-width: 200px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 6px 20px rgba(13, 42, 107, 0.75);
 }
 
 /* Anchored: centered under the seat. */
@@ -298,7 +298,7 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   z-index: 2500;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(13, 42, 107, 0.5);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -310,7 +310,7 @@ onUnmounted(() => {
   max-height: 70vh;
   display: flex;
   flex-direction: column;
-  background: #121214;
+  background: #173f9e;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: none;
   border-radius: 16px 16px 0 0;

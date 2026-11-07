@@ -447,14 +447,14 @@ async function handleForgotPassword() {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--bg-concrete);
+  background: transparent;
   padding: var(--spacing-4);
 }
 
 .auth-card {
   width: 100%;
   max-width: 440px;
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   padding: var(--spacing-8) var(--spacing-6);
@@ -524,7 +524,7 @@ async function handleForgotPassword() {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-1);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   padding: var(--spacing-1);
   border-radius: var(--radius-sm);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -578,7 +578,7 @@ async function handleForgotPassword() {
 .field-input {
   width: 100%;
   padding: var(--spacing-3) var(--spacing-4);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -711,7 +711,7 @@ async function handleForgotPassword() {
   background: #fff;
   border: 1px solid #fff;
   border-radius: var(--radius-sm);
-  color: #1f1f1f;
+  color: #0d2a6b;
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   font-weight: 700;

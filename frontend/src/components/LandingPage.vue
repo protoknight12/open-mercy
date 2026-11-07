@@ -481,7 +481,7 @@ function runHeroChoreography() {
 }
 
 .landing-container {
-  background: var(--bg-concrete);
+  background: transparent;
   color: var(--text-primary);
   position: relative;
   display: flex;
@@ -499,7 +499,7 @@ function runHeroChoreography() {
   gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-4);
   border-bottom: 1px solid rgba(255, 204, 0, 0.08);
-  background: linear-gradient(180deg, rgba(10, 10, 11, 0.95), rgba(10, 10, 11, 0.7));
+  background: linear-gradient(180deg, rgba(23, 63, 158, 0.95), rgba(23, 63, 158, 0.7));
   backdrop-filter: blur(8px);
   flex-wrap: wrap;
 }
@@ -611,7 +611,7 @@ function runHeroChoreography() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 10px 24px rgba(13, 42, 107, 0.6));
   will-change: transform, opacity;
 }
 

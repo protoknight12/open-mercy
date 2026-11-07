@@ -1269,7 +1269,7 @@ function copyLink() {
 <style scoped>
 .lobby-container {
   min-height: 100vh;
-  background: var(--bg-concrete);
+  background: transparent;
   color: var(--text-primary);
   position: relative;
   display: flex;
@@ -1286,7 +1286,7 @@ function copyLink() {
   gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-4);
   border-bottom: 1px solid rgba(255, 204, 0, 0.08);
-  background: linear-gradient(180deg, rgba(10, 10, 11, 0.95), rgba(10, 10, 11, 0.7));
+  background: linear-gradient(180deg, rgba(23, 63, 158, 0.95), rgba(23, 63, 158, 0.7));
   flex-wrap: wrap;
 }
 
@@ -1360,7 +1360,7 @@ function copyLink() {
   padding: var(--spacing-2) var(--spacing-3);
   border: 1px solid var(--color-neon-blue);
   border-radius: var(--radius-sm);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   width: 9rem;
   text-transform: uppercase;
 }
@@ -1636,14 +1636,13 @@ function copyLink() {
   color: var(--text-secondary);
 }
 
+/* The daily loop is sunny yellow, like every daily surface. */
 .daily-card :deep(.btn--secondary) {
-  border-color: var(--color-hazard);
-  color: var(--color-hazard);
-}
-
-.daily-card :deep(.btn--secondary:hover:not(:disabled)) {
-  background: var(--color-hazard);
-  color: #000;
+  --btn-top: #ffe066;
+  --btn-bottom: #ffb400;
+  --btn-lip: #c27a00;
+  color: #5a3300;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .daily-card.done {
@@ -1667,7 +1666,7 @@ function copyLink() {
 }
 
 .run-cell--played { background: var(--color-neon-green); }
-.run-cell--drew { background: #52525b; }
+.run-cell--drew { background: #4a7fe6; }
 .run-cell--stacked { background: var(--color-alert); }
 
 .daily-legend {
@@ -2021,7 +2020,7 @@ function copyLink() {
   padding: 0 4px;
   border-radius: 999px;
   background: var(--color-hazard);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
   font-family: var(--font-mono);
   font-size: 0.58rem;
   font-weight: 700;
@@ -2108,10 +2107,10 @@ function copyLink() {
   display: flex;
   flex-direction: column;
   padding: var(--spacing-1);
-  background: #16171a;
+  background: #173f9e;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 10px 28px rgba(13, 42, 107, 0.65);
   z-index: 60;
 }
 
@@ -2162,10 +2161,10 @@ function copyLink() {
   width: max-content;
   max-width: 17rem;
   padding: var(--spacing-2) var(--spacing-3);
-  background: #16171a;
+  background: #173f9e;
   border: 1px solid rgba(255, 204, 0, 0.3);
   border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px rgba(13, 42, 107, 0.6);
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.72rem;
   line-height: 1.5;
@@ -2199,7 +2198,7 @@ function copyLink() {
   width: 8px;
   height: 8px;
   margin: -5px 0 0 -4px;
-  background: #16171a;
+  background: #173f9e;
   border-right: 1px solid rgba(255, 204, 0, 0.3);
   border-bottom: 1px solid rgba(255, 204, 0, 0.3);
   transform: rotate(45deg);
@@ -2354,7 +2353,7 @@ function copyLink() {
   gap: 0.4rem;
   background: var(--color-hazard);
   border: none;
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
   padding: var(--spacing-2) var(--spacing-4);
   font-family: var(--font-display);
   font-size: var(--text-xs);
@@ -2490,7 +2489,7 @@ function copyLink() {
   align-items: center;
   gap: var(--spacing-2);
   padding: var(--spacing-2) var(--spacing-3);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-pill);
 }
@@ -2505,7 +2504,7 @@ function copyLink() {
   height: 28px;
   border-radius: 50%;
   background: var(--color-neon-blue);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2532,7 +2531,7 @@ function copyLink() {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   background: var(--color-hazard);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
   padding: 2px var(--spacing-2);
   border-radius: var(--radius-sm);
   letter-spacing: 0.1em;
@@ -2824,7 +2823,7 @@ function copyLink() {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(13, 42, 107, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2850,7 +2849,7 @@ function copyLink() {
 }
 
 .join-modal {
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(0, 243, 255, 0.25);
   border-radius: var(--radius-md);
   padding: var(--spacing-8) var(--spacing-6);
@@ -2883,7 +2882,7 @@ function copyLink() {
   text-align: center;
   letter-spacing: 0.4rem;
   text-transform: uppercase;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   margin-bottom: var(--spacing-4);

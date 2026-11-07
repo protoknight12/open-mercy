@@ -208,7 +208,7 @@ function later() {
   background: var(--surface-metal);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 24px 60px rgba(13, 42, 107, 0.8);
   overflow: hidden;
   font-family: var(--font-body);
 }

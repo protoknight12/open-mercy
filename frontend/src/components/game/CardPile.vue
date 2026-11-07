@@ -222,7 +222,7 @@ watch(() => props.cards.length, (newLen, oldLen) => {
   right: 20%;
   bottom: -8px;
   height: 18px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(13, 42, 107, 0.7) 0%, transparent 70%);
   filter: blur(6px);
   pointer-events: none;
   z-index: -1;
@@ -288,7 +288,7 @@ watch(() => props.cards.length, (newLen, oldLen) => {
   top: 0;
   left: 0;
   z-index: 10;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 10px 20px rgba(13, 42, 107, 0.6));
 }
 
 .card-count {
@@ -297,9 +297,9 @@ watch(() => props.cards.length, (newLen, oldLen) => {
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  background: #111;
+  background: #173f9e;
   padding: 2px 6px;
   border-radius: 4px;
-  border: 1px solid #333;
+  border: 1px solid #2a5fd0;
 }
 </style>

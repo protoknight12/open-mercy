@@ -91,7 +91,7 @@ const initial = computed(() => initialOf(props.name))
     bottom: calc(var(--emblem-size) * -0.2);
 }
 .av-pip :deep(.badge-art) {
-    --cut: rgba(6, 8, 10, 0.95);
+    --cut: rgba(23, 63, 158, 0.95);
     filter:
         drop-shadow(1.5px 0 0 var(--cut)) drop-shadow(-1.5px 0 0 var(--cut))
         drop-shadow(0 1.5px 0 var(--cut)) drop-shadow(0 -1.5px 0 var(--cut));

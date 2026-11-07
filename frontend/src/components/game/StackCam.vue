@@ -151,7 +151,7 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   z-index: 2100;
-  background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.72) 78%);
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(13, 42, 107, 0.72) 78%);
   opacity: 0;
   transition: opacity 0.4s ease-out;
   pointer-events: none;
@@ -166,7 +166,7 @@ onUnmounted(() => {
   right: 0;
   height: 9vh;
   z-index: 2200;
-  background: #000;
+  background: #173f9e;
   transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
@@ -192,7 +192,7 @@ onUnmounted(() => {
   /* Glow via filter, not text-shadow: the odometer columns are overflow:hidden
      to clip the digit roll, which would box-clip a per-glyph text-shadow. A
      filter on the pot applies after that clipping, so the glow stays soft. */
-  filter: drop-shadow(0 0 16px var(--sc-color, #ff2a2a)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(0 0 16px var(--sc-color, #ff2a2a)) drop-shadow(0 4px 10px rgba(13, 42, 107, 0.7));
   transform: translate(-50%, -20px) scale(0.6);
   opacity: 0;
   transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.24s ease-out;
@@ -223,7 +223,7 @@ onUnmounted(() => {
   font-family: var(--font-display), sans-serif;
   font-size: clamp(1.6rem, 6vw, 3.2rem);
   letter-spacing: 0.06em;
-  text-shadow: 0 0 24px var(--sc-color, #ff2a2a), 0 4px 14px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 24px var(--sc-color, #ff2a2a), 0 4px 14px rgba(13, 42, 107, 0.8);
   transform: translate(-50%, -50%) scale(1.35);
   opacity: 0;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease-out;

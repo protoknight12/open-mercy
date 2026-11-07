@@ -18,23 +18,25 @@ const settings = useSettingsStore()
 
 <style scoped>
 .settings-btn {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 204, 0, 0.3);
-  color: #ffcc00;
-  width: 44px;  /* touch target ≥ 44px */
-  height: 44px;
-  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(180deg, #ffe066 0%, #ffb400 100%);
+  border: 3px solid #fff;
+  color: #7a4600;
+  width: 48px;  /* touch target >= 44px */
+  height: 48px;
+  border-radius: 50%;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.18s, color 0.18s, background 0.18s, transform 0.18s;
+  box-shadow: 0 4px 0 #c27a00, 0 8px 14px rgba(13, 42, 107, 0.3);
+  transition: transform 0.18s, filter 0.18s;
   padding: 0;
 }
 
 .settings-btn:hover {
-  border-color: #ffcc00;
-  background: rgba(255, 204, 0, 0.08);
+  filter: brightness(1.06);
   transform: rotate(30deg);
 }
 

@@ -144,10 +144,10 @@ async function join(invite = showing.value) {
   gap: var(--spacing-2);
   width: min(26rem, calc(100vw - var(--spacing-6)));
   padding: var(--spacing-3);
-  background: rgba(10, 12, 14, 0.96);
+  background: rgba(23, 63, 158, 0.96);
   border: 1px solid rgba(0, 243, 255, 0.4);
   border-radius: var(--radius-md);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 30px rgba(13, 42, 107, 0.55);
   font-family: 'Chakra Petch', sans-serif;
   font-size: 0.85rem;
   color: var(--text-secondary);
@@ -239,10 +239,10 @@ async function join(invite = showing.value) {
   max-width: calc(100vw - var(--spacing-6));
   padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) var(--spacing-3);
   min-height: 36px;
-  background: rgba(10, 12, 14, 0.92);
+  background: rgba(23, 63, 158, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(13, 42, 107, 0.5);
   font-family: var(--font-body);
   font-size: 0.8rem;
   color: var(--text-secondary);

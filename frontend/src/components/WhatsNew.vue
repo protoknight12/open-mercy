@@ -209,10 +209,10 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--surface-metal-dark, #121416);
+  background: var(--surface-metal-dark, #173f9e);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 18px 50px rgba(13, 42, 107, 0.75);
 }
 
 .wn-grabber { display: none; }
@@ -363,7 +363,7 @@ onUnmounted(() => {
     position: fixed;
     inset: 0;
     z-index: 49;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(13, 42, 107, 0.6);
   }
 
   .wn-panel {

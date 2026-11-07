@@ -69,10 +69,10 @@ defineEmits<{ close: [] }>()
   flex-direction: column;
   max-height: min(82vh, 760px);
   width: min(540px, 94vw);
-  background: #111;
+  background: #173f9e;
   border: 2px solid var(--color-hazard);
   border-radius: 4px;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 204, 0, 0.12);
+  box-shadow: 0 24px 70px rgba(13, 42, 107, 0.6), 0 0 50px rgba(255, 204, 0, 0.12);
   color: var(--text-primary);
   overflow: hidden;
 }
@@ -208,7 +208,7 @@ defineEmits<{ close: [] }>()
   width: 100%;
   padding: 0.7rem;
   background: var(--color-hazard);
-  color: #111;
+  color: #0d2a6b;
   border: none;
   border-radius: 3px;
   font-family: var(--font-display);

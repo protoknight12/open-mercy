@@ -250,7 +250,7 @@ function initFaq() {
 .faq-row {
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(13, 42, 107, 0.35);
   transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
   will-change: transform, opacity;
 }
@@ -263,7 +263,7 @@ function initFaq() {
 .faq-row[open] {
   border-color: rgba(0, 243, 255, 0.45);
   background: rgba(0, 243, 255, 0.05);
-  box-shadow: 0 0 28px rgba(0, 243, 255, 0.1), inset 0 0 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 28px rgba(0, 243, 255, 0.1), inset 0 0 24px rgba(13, 42, 107, 0.4);
 }
 
 .faq-summary {

@@ -134,7 +134,7 @@ async function submit() {
 
 <style scoped>
 .feedback-card {
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 204, 0, 0.18);
   border-radius: var(--radius-md);
   padding: var(--spacing-6);
@@ -227,7 +227,7 @@ async function submit() {
 .field-input {
   width: 100%;
   padding: var(--spacing-3);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(13, 42, 107, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   font-family: var(--font-body);

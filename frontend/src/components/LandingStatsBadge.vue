@@ -43,8 +43,8 @@ const retention = useRetentionStore()
   width: 280px;
   padding: 0.85rem 1rem 0.9rem;
   background:
-    linear-gradient(180deg, rgba(255, 204, 0, 0.04), rgba(0, 0, 0, 0)),
-    rgba(8, 8, 9, 0.72);
+    linear-gradient(180deg, rgba(255, 204, 0, 0.04), rgba(13, 42, 107, 0)),
+    rgba(23, 63, 158, 0.72);
   border: 1px solid rgba(255, 204, 0, 0.22);
   /* Tactical cut corner — a clipped notch top-right reads as "field-issued". */
   clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
@@ -146,7 +146,7 @@ const retention = useRetentionStore()
 .cr-label {
   font-size: 0.55rem;
   letter-spacing: 0.16em;
-  color: #5a5a63;
+  color: #0d2a6b;
   text-transform: uppercase;
 }
 

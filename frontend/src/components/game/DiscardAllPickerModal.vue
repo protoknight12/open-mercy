@@ -60,7 +60,7 @@ defineEmits<{
 
 <style scoped>
 .picker-card {
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 204, 0, 0.25);
   border-radius: var(--radius-md);
   padding: var(--spacing-6);

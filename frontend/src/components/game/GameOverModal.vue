@@ -429,15 +429,15 @@ function confettiStyle(i: number) {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-4);
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(13, 42, 107, 0.75);
   animation: overlay-in 0.25s ease-out;
 }
 
 .game-over-overlay.is-win {
-  background: radial-gradient(ellipse at center, rgba(255, 204, 0, 0.18) 0%, rgba(0, 0, 0, 0.85) 60%);
+  background: radial-gradient(ellipse at center, rgba(255, 204, 0, 0.18) 0%, rgba(13, 42, 107, 0.85) 60%);
 }
 .game-over-overlay.is-loss {
-  background: radial-gradient(ellipse at center, rgba(255, 42, 42, 0.18) 0%, rgba(0, 0, 0, 0.88) 60%);
+  background: radial-gradient(ellipse at center, rgba(255, 42, 42, 0.18) 0%, rgba(13, 42, 107, 0.88) 60%);
 }
 
 @keyframes overlay-in { from { opacity: 0 } to { opacity: 1 } }
@@ -445,7 +445,7 @@ function confettiStyle(i: number) {
 .modal-card {
   width: 100%;
   max-width: 440px;
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   padding: 2rem 1.75rem 1.5rem;
@@ -530,7 +530,7 @@ function confettiStyle(i: number) {
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #52525b;
+  color: #0d2a6b;
   margin-top: 0.35rem;
 }
 
@@ -550,7 +550,7 @@ function confettiStyle(i: number) {
 .cta-primary:active { transform: translateY(0); }
 
 .cta-win {
-  color: #0a0a0b;
+  color: #0d2a6b;
   background: #ffcc00;
   border-color: #ffcc00;
   box-shadow: 0 0 30px rgba(255, 204, 0, 0.45);
@@ -795,7 +795,7 @@ function confettiStyle(i: number) {
   font-family: 'Chakra Petch', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
-  color: #52525b;
+  color: #0d2a6b;
   text-transform: uppercase;
   padding: 0.25rem 0;
   transition: color 0.15s;

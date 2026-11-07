@@ -111,7 +111,7 @@
 .guide-block {
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(13, 42, 107, 0.35);
   padding: 1.25rem 1.3rem;
 }
 

@@ -60,7 +60,7 @@ defineEmits<{
 .confirm-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(13, 42, 107, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@ defineEmits<{
 }
 
 .confirm-card {
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 42, 42, 0.35);
   border-radius: var(--radius-md);
   padding: var(--spacing-8) var(--spacing-6);

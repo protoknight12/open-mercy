@@ -100,12 +100,12 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(4, 6, 10, 0.75));
+  background: linear-gradient(to bottom, rgba(13, 42, 107, 0.35), rgba(23, 63, 158, 0.75));
   padding: 0.5rem 0.75rem;
 }
 
 .tactical-hud {
-  background: rgba(13, 14, 16, 0.96);
+  background: rgba(23, 63, 158, 0.96);
   border: 2px solid var(--color-hazard);
   padding: 0.75rem 1rem;
   width: min(520px, 100%);
@@ -118,7 +118,7 @@ onUnmounted(() => {
   content: '';
   position: absolute;
   top: -2px; left: 20%; right: 20%; height: 2px;
-  background: rgba(13, 14, 16, 0.96);
+  background: rgba(23, 63, 158, 0.96);
   z-index: 1;
 }
 
@@ -175,7 +175,7 @@ onUnmounted(() => {
 .color-btn {
   height: 64px;
   border: none;
-  background: #222;
+  background: #2a5fd0;
   cursor: pointer;
   padding: 3px; /* for outer rim */
   clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
@@ -193,7 +193,7 @@ onUnmounted(() => {
   font-family: var(--font-display);
   font-size: 0.9rem;
   color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 4px rgba(13, 42, 107, 0.5);
   position: relative;
   overflow: hidden;
   clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);

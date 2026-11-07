@@ -48,7 +48,7 @@ defineEmits<{
 
 <style scoped>
 .select-card {
-  background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+  background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
   border: 1px solid rgba(255, 204, 0, 0.2);
   border-radius: var(--radius-md);
   padding: var(--spacing-6);
@@ -102,7 +102,7 @@ defineEmits<{
   justify-content: space-between;
   gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-4);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(13, 42, 107, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
   font-family: var(--font-body);

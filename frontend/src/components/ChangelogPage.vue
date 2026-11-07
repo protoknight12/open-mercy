@@ -116,7 +116,7 @@ const months = computed(() => {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-void, #0a0a0a);
+  background: transparent;
 }
 
 .cl-topbar {

@@ -1140,7 +1140,7 @@ async function handleUpgrade() {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  background: radial-gradient(ellipse at center, rgba(255, 42, 42, 0.28) 0%, rgba(0, 0, 0, 0.9) 65%);
+  background: radial-gradient(ellipse at center, rgba(255, 42, 42, 0.28) 0%, rgba(13, 42, 107, 0.9) 65%);
   animation: ko-flash 1.6s ease-out both;
   pointer-events: none;
 }
@@ -1187,10 +1187,10 @@ async function handleUpgrade() {
   align-items: center;
   gap: 0.75rem;
   padding: 0.55rem 0.65rem 0.55rem 1.1rem;
-  background: rgba(8, 12, 14, 0.92);
+  background: rgba(23, 63, 158, 0.92);
   border: 1px solid rgba(0, 229, 255, 0.35);
   border-radius: 999px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 28px rgba(13, 42, 107, 0.5);
   z-index: var(--z-toast);
   max-width: calc(100vw - 2rem);
   font-family: 'Chakra Petch', sans-serif;

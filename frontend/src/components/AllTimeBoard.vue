@@ -453,7 +453,7 @@ function openProfile(code: string | null | undefined) {
   padding: var(--spacing-3) var(--spacing-2);
   border: 1px solid rgba(0, 243, 255, 0.35);
   border-radius: var(--radius-md);
-  background: var(--surface-metal-dark, #121416);
+  background: var(--surface-metal-dark, #173f9e);
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-secondary);

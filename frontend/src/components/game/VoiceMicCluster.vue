@@ -153,7 +153,7 @@ function handleClick() {
   width: max-content;
   max-width: min(300px, 82vw);
   padding: var(--spacing-2) var(--spacing-3);
-  background: rgba(8, 12, 9, 0.96);
+  background: rgba(23, 63, 158, 0.96);
   border: 1px solid var(--color-neon-green);
   border-radius: var(--radius-sm);
   box-shadow: 0 6px 24px rgba(0, 255, 102, 0.25);
@@ -166,7 +166,7 @@ function handleClick() {
 
 .nudge-join {
   background: var(--color-neon-green);
-  color: #000;
+  color: #0d2a6b;
   border: none;
   padding: 0.35rem 0.55rem;
   border-radius: 4px;
@@ -205,8 +205,8 @@ function handleClick() {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2);
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #333;
+  background: rgba(13, 42, 107, 0.5);
+  border: 1px solid #2a5fd0;
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -257,7 +257,7 @@ function handleClick() {
 .hud-voice-spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid #333;
+  border: 2px solid #2a5fd0;
   border-top-color: var(--color-neon-green);
   border-radius: 50%;
   animation: voice-spin 0.8s linear infinite;

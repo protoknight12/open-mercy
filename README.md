@@ -40,7 +40,7 @@ The ruleset popularized by Mattel's UNO Show 'Em No Mercy® never got a proper d
 | Layer | Tech |
 |-------|------|
 | Frontend | Vue 3 + TypeScript + Vite |
-| Styling | CSS (custom industrial/cyberpunk theme) |
+| Styling | CSS tokens ("Sky Arena": bright sky, glossy royal-blue panels, lime table) |
 | State | Pinia |
 | Animations | GSAP |
 | Cards | Programmatic SVG generation (no image assets needed) |

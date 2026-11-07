@@ -627,7 +627,7 @@ function init() {
 .chap-label {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: #444;
+  color: #0d2a6b;
   letter-spacing: 6px;
   margin-bottom: 1.1rem;
 }
@@ -672,7 +672,7 @@ function init() {
   left: 0;
   top: 0;
   translate: -50% -50%;
-  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 12px 32px rgba(13, 42, 107, 0.5));
   will-change: transform, opacity;
 }
 
@@ -740,8 +740,8 @@ function init() {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: #173f9e;
+  border: 2px solid #4a7fe6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -768,7 +768,7 @@ function init() {
   color: var(--color-alert);
   border: 2px solid var(--color-alert);
   padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(13, 42, 107, 0.9);
   white-space: nowrap;
   z-index: 5;
   text-shadow: 0 0 10px var(--color-alert);
@@ -833,7 +833,7 @@ function init() {
   color: var(--color-alert);
   border: 4px solid var(--color-alert);
   padding: 0.5rem 2.4rem;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(13, 42, 107, 0.95);
   white-space: nowrap;
   z-index: 10;
   text-shadow: 0 0 30px var(--color-alert);
@@ -849,10 +849,10 @@ function init() {
   translate: 0 -50%;
   width: 340px;
   text-align: left;
-  background: rgba(8, 12, 10, 0.92);
+  background: rgba(23, 63, 158, 0.92);
   border: 1px solid rgba(57, 255, 20, 0.35);
   border-radius: 10px;
-  box-shadow: 0 0 50px rgba(57, 255, 20, 0.12), inset 0 0 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 50px rgba(57, 255, 20, 0.12), inset 0 0 30px rgba(13, 42, 107, 0.6);
   will-change: transform, opacity;
 }
 
@@ -869,8 +869,8 @@ function init() {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #2a2a2a;
-  border: 1px solid #444;
+  background: #2a5fd0;
+  border: 1px solid #4a7fe6;
 }
 .hud-dot:nth-child(1) { background: var(--color-alert); border-color: var(--color-alert); }
 .hud-dot:nth-child(2) { background: var(--color-hazard); border-color: var(--color-hazard); }
@@ -913,7 +913,7 @@ function init() {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   padding: 0.18rem 0.6rem;
-  border: 1px solid #3a3a3a;
+  border: 1px solid #2a5fd0;
   border-radius: 4px;
   color: #8a8a8a;
   will-change: transform;
@@ -950,7 +950,7 @@ function init() {
 }
 .agent-cta:hover {
   background: var(--color-neon-green);
-  color: #000;
+  color: #0d2a6b;
   box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
 }
 
@@ -993,7 +993,7 @@ function init() {
   border: 1px solid rgba(57, 255, 20, 0.4);
   padding: 0.35rem 0.9rem;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(13, 42, 107, 0.5);
   white-space: nowrap;
   will-change: transform, opacity;
 }
@@ -1023,8 +1023,8 @@ function init() {
   align-items: center;
   gap: 0.6rem;
   padding: 0.85rem 1.4rem;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid #333;
+  background: rgba(13, 42, 107, 0.6);
+  border: 1px solid #2a5fd0;
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 0.95rem;

@@ -36,28 +36,48 @@ withDefaults(
 </template>
 
 <style scoped>
+/* Sky Arena: chunky glossy candy buttons with a solid bottom lip that the
+   button presses into on :active. */
 .btn {
+  --btn-top: var(--color-alert);
+  --btn-bottom: var(--color-alert-dim);
+  --btn-lip: #8a0f1f;
   font-family: var(--font-display);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(13, 42, 107, 0.3);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 48%),
+    linear-gradient(180deg, var(--btn-top) 0%, var(--btn-bottom) 100%);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 5px 0 var(--btn-lip), 0 9px 16px rgba(13, 42, 107, 0.3);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
   min-height: 44px;
   transition:
-    background var(--duration-snap) var(--ease-snap),
-    color var(--duration-snap) var(--ease-snap),
     transform var(--duration-snap) var(--ease-snap),
-    box-shadow var(--duration-snap) var(--ease-snap);
+    box-shadow var(--duration-snap) var(--ease-snap),
+    filter var(--duration-snap) var(--ease-snap);
   white-space: nowrap;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 7px 0 var(--btn-lip), 0 12px 20px rgba(13, 42, 107, 0.32);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--btn-lip), 0 3px 6px rgba(13, 42, 107, 0.3);
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
+  filter: grayscale(0.4);
   cursor: not-allowed;
 }
 
@@ -68,82 +88,35 @@ withDefaults(
 .btn--sm {
   padding: var(--spacing-2) var(--spacing-4);
   font-size: var(--text-sm);
-  min-height: 44px;
 }
 
 .btn--md {
   padding: var(--spacing-3) var(--spacing-6);
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
 }
 
 .btn--lg {
   padding: var(--spacing-4) var(--spacing-8);
-  font-size: var(--text-lg);
-  min-height: 56px;
+  font-size: var(--text-xl);
+  min-height: 58px;
 }
 
-/* primary — red glow, gradient fill */
-.btn--primary {
-  background: linear-gradient(
-    145deg,
-    var(--color-alert) 0%,
-    var(--color-alert-dim) 100%
-  );
-  border-color: var(--color-alert);
-  color: white;
-}
-.btn--primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow-red);
-}
-.btn--primary:active:not(:disabled) {
-  transform: translateY(0);
-}
+/* primary — candy red, the create / go action */
+.btn--primary { --btn-top: #ff5a68; --btn-bottom: #e8253a; --btn-lip: #a3132a; }
 
-/* secondary — cyan outline */
-.btn--secondary {
-  background: transparent;
-  border-color: var(--color-neon-blue);
-  color: var(--color-neon-blue);
-}
-.btn--secondary:hover:not(:disabled) {
-  background: var(--color-neon-blue);
-  color: var(--bg-concrete);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow-cyan);
-}
+/* secondary — aqua, multiplayer */
+.btn--secondary { --btn-top: #4fe6ff; --btn-bottom: #12a8e0; --btn-lip: #0b6f9e; }
 
-/* ghost — muted, low-attention */
-.btn--ghost {
-  background: transparent;
-  border-color: var(--text-muted);
-  color: var(--text-secondary);
-}
-.btn--ghost:hover:not(:disabled) {
-  border-color: var(--text-secondary);
-  color: var(--text-primary);
-  transform: translateY(-2px);
-}
+/* ghost — royal blue, low-attention */
+.btn--ghost { --btn-top: #3f7cf0; --btn-bottom: #2552c4; --btn-lip: #163a8e; }
 
-/* danger — solid red, no gradient, used for destructive confirms */
-.btn--danger {
-  background: var(--color-alert);
-  border-color: var(--color-alert);
-  color: white;
-}
-.btn--danger:hover:not(:disabled) {
-  background: var(--color-alert-dim);
-  box-shadow: var(--shadow-glow-red);
-}
+/* danger — deep red, destructive confirms */
+.btn--danger { --btn-top: #ff4a4a; --btn-bottom: #c41a1a; --btn-lip: #7d0d0d; }
 
-/* hazard — solid yellow, for answering someone (accept) rather than playing */
+/* hazard — sunny yellow, answering someone / daily loop */
 .btn--hazard {
-  background: var(--color-hazard);
-  border-color: var(--color-hazard);
-  color: var(--bg-concrete);
-}
-.btn--hazard:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow-yellow);
+  --btn-top: #ffe066; --btn-bottom: #ffb400; --btn-lip: #c27a00;
+  color: #5a3300;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 </style>

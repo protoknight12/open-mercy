@@ -148,7 +148,7 @@ const EARN = [
 .bp-page {
   min-height: 100vh;
   min-height: 100dvh;
-  background: #0a0a0b;
+  background: transparent;
   color: #e6e6e6;
   display: flex;
   flex-direction: column;

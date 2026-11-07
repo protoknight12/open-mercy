@@ -39,7 +39,7 @@ const label = computed(() => presenceLabel(props.lastSeenAt, now.value))
   height: var(--pdot-size, 10px);
   border-radius: 50%;
   /* A ring keeps the dot legible on both the dark chrome and the card art. */
-  box-shadow: 0 0 0 2px rgba(6, 8, 10, 0.9);
+  box-shadow: 0 0 0 2px rgba(23, 63, 158, 0.9);
 }
 
 .pdot--online {

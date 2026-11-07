@@ -10,87 +10,64 @@
       '--card-back-stripe': stripe,
     }"
   >
-    <svg 
-      :width="size.width" 
-      :height="size.height" 
-      viewBox="0 0 250 350" 
+    <svg
+      :width="size.width"
+      :height="size.height"
+      viewBox="0 0 250 350"
       xmlns="http://www.w3.org/2000/svg"
       class="card-back-svg"
     >
-      <!-- Base Card Shape -->
-      <rect 
-        x="0" y="0" 
-        width="250" height="350" 
-        rx="16" ry="16"
-        fill="#111"
+      <!-- White card edge -->
+      <rect x="0" y="0" width="250" height="350" rx="22" ry="22" fill="#ffffff" />
+
+      <!-- Royal-blue face with a soft top gloss -->
+      <rect x="10" y="10" width="230" height="330" rx="16" ry="16" fill="url(#cbFace)" />
+
+      <!-- Sunburst rays from the centre -->
+      <g opacity="0.16" fill="#ffffff">
+        <path d="M125 175 L95 10 L155 10 Z" />
+        <path d="M125 175 L240 60 L240 130 Z" />
+        <path d="M125 175 L240 230 L240 300 Z" />
+        <path d="M125 175 L155 340 L95 340 Z" />
+        <path d="M125 175 L10 300 L10 230 Z" />
+        <path d="M125 175 L10 130 L10 60 Z" />
+      </g>
+
+      <!-- Inner frame in the skin's stripe colour -->
+      <rect
+        x="22" y="22" width="206" height="306" rx="12" ry="12"
+        fill="none" stroke-width="6" stroke-dasharray="2 10" stroke-linecap="round"
+        style="stroke: var(--card-back-stripe, #ffc928)"
       />
 
-      <!-- Industrial Plate Texture -->
-      <rect 
-        x="6" y="6" 
-        width="238" height="338" 
-        rx="12" ry="12"
-        fill="url(#plateGradient)"
-        stroke="#333"
-        stroke-width="2"
-      />
-      
-      <!-- Hazard Stripes Top/Bottom -->
-      <path d="M 6 40 L 244 40" stroke="url(#hazardStripe)" stroke-width="12" />
-      <path d="M 6 310 L 244 310" stroke="url(#hazardStripe)" stroke-width="12" />
+      <!-- Tilted lozenge carrying the wordmark, in the skin's accent colour -->
+      <g transform="rotate(-18 125 175)">
+        <ellipse cx="125" cy="182" rx="96" ry="60" fill="#0d2a6b" opacity="0.35" />
+        <ellipse cx="125" cy="175" rx="96" ry="60" fill="#ffffff" />
+        <ellipse cx="125" cy="175" rx="86" ry="51" style="fill: var(--card-back-accent, #ff3d4f)" />
+        <ellipse cx="125" cy="155" rx="70" ry="22" fill="#ffffff" opacity="0.25" />
+        <text
+          x="125" y="168"
+          font-family="Lilita One, Arial Rounded MT Bold, sans-serif"
+          font-size="40" fill="#ffffff" stroke="#0d2a6b" stroke-width="2" paint-order="stroke"
+          text-anchor="middle" dominant-baseline="middle"
+        >OPEN</text>
+        <text
+          x="125" y="200"
+          font-family="Lilita One, Arial Rounded MT Bold, sans-serif"
+          font-size="28" fill="#ffc928" stroke="#0d2a6b" stroke-width="2" paint-order="stroke"
+          text-anchor="middle" dominant-baseline="middle"
+        >MERCY</text>
+      </g>
 
-      <!-- Center Warning Circle -->
-      <circle 
-        cx="125" cy="175" 
-        r="90" 
-        fill="none" 
-        stroke="rgba(255,255,255,0.1)" 
-        stroke-width="2" 
-        stroke-dasharray="10 5"
-      />
-      
-      <circle 
-        cx="125" cy="175" 
-        r="75" 
-        fill="#000" 
-        style="stroke: var(--card-back-accent, #ff3333)" 
-        stroke-width="4"
-      />
-
-      <!-- OPEN MERCY Text -->
-      <text
-        x="125" y="165"
-        font-family="Black Ops One, cursive"
-        font-size="42"
-        style="fill: var(--card-back-accent, #ff3333)"
-        text-anchor="middle"
-        dominant-baseline="middle"
-      >OPEN</text>
-      <text 
-        x="125" y="205" 
-        font-family="Black Ops One, cursive" 
-        font-size="32" 
-        fill="#e6e6e6"
-        text-anchor="middle"
-        dominant-baseline="middle"
-      >MERCY</text>
-      
-      <!-- Definitions -->
       <defs>
-        <linearGradient id="plateGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#2a2a2a" />
-          <stop offset="100%" style="stop-color:#1a1a1a" />
+        <linearGradient id="cbFace" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#4d8dff" />
+          <stop offset="55%" stop-color="#2a5fd0" />
+          <stop offset="100%" stop-color="#173f9e" />
         </linearGradient>
-
-        <pattern id="hazardStripe" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect x="0" y="0" width="10" height="20" style="fill: var(--card-back-stripe, #ffcc00)" />
-          <rect x="10" y="0" width="10" height="20" fill="#000" />
-        </pattern>
       </defs>
     </svg>
-    
-    <!-- Scratches Overlay -->
-    <div class="scratches"></div>
   </div>
 </template>
 
@@ -115,22 +92,6 @@ withDefaults(defineProps<Props>(), {
   border-radius: 12px;
   overflow: hidden;
   position: relative;
-  box-shadow: 
-    0 10px 20px rgba(0,0,0,0.5),
-    inset 0 0 0 1px rgba(255,255,255,0.1);
-}
-
-.scratches {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(255,255,255,0.03) 0px,
-    rgba(255,255,255,0.03) 1px,
-    transparent 1px,
-    transparent 10px
-  );
-  pointer-events: none;
-  opacity: 0.5;
+  box-shadow: 0 6px 0 rgba(13, 42, 107, 0.35), 0 10px 18px rgba(13, 42, 107, 0.3);
 }
 </style>

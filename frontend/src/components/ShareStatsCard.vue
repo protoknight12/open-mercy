@@ -176,7 +176,7 @@ function copy() {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-4);
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(13, 42, 107, 0.88);
 }
 
 .ssc-modal {
@@ -186,7 +186,7 @@ function copy() {
     width: 100%;
     max-width: 640px;
     padding: var(--spacing-6);
-    background: linear-gradient(180deg, #18191b 0%, #0a0a0b 100%);
+    background: linear-gradient(180deg, #173f9e 0%, #173f9e 100%);
     border: 1px solid rgba(255, 204, 0, 0.25);
     border-radius: var(--radius-md);
     box-shadow: 0 0 40px rgba(255, 204, 0, 0.12);

@@ -261,8 +261,8 @@ onUnmounted(() => {
   overflow-y: auto;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: var(--surface-metal-dark, #121416);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+  background: var(--surface-metal-dark, #173f9e);
+  box-shadow: 0 14px 40px rgba(13, 42, 107, 0.7);
 }
 
 .cs-search {
@@ -366,7 +366,7 @@ onUnmounted(() => {
     position: fixed;
     inset: 0;
     z-index: 39;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(13, 42, 107, 0.6);
   }
 
   .cs-menu {

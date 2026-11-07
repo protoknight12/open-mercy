@@ -52,8 +52,8 @@ onMounted(() => { void privacySettingsAvailable().then(v => { privacySettings.va
 
 <style scoped>
 .site-footer {
-  background: rgba(0, 0, 0, 0.7);
-  border-top: 1px solid #2a2a2a;
+  background: rgba(13, 42, 107, 0.7);
+  border-top: 1px solid #2a5fd0;
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@ onMounted(() => { void privacySettingsAvailable().then(v => { privacySettings.va
 }
 
 .footer-sep {
-  color: #2a2a2a;
+  color: #0d2a6b;
   margin: 0 0.25rem;
 }
 

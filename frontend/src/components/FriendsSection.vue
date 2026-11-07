@@ -414,7 +414,7 @@ onUnmounted(() => {
   justify-content: center;
   border-radius: 999px;
   background: var(--color-hazard);
-  color: var(--bg-concrete);
+  color: var(--surface-ink);
   font-size: 0.75rem;
   font-weight: 700;
 }
