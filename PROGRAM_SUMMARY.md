@@ -164,3 +164,10 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
   Verified on Postgres 15 with Supabase stubs: every file runs, signup creates a
   profile, `record_bot_result` enforces the daily's one attempt, other players can't
   read your rows, and the boards and `public_profile` return the data.
+- **2026-11-07**: Live test on https://open-mercy.vercel.app: guest sign-in works, the
+  signup trigger creates the profile row, and a solo game plays with official rules
+  (number-only opening card; Discard All took 4 blue cards in one play and the turn
+  passed). In the live project only `00-base-schema.sql` has run so far:
+  presence, leaderboards, results-hardening (`record_bot_result`), profile pages,
+  badges, friends and the rest still return "function not found", so solo results
+  are not recorded and the boards stay empty until the remaining files run.
