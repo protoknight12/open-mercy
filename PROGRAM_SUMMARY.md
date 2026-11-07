@@ -156,6 +156,11 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
   set for production and preview (project `virnfnbbakymsdxyrbuy`, publishable key).
   Verified: pages, deep links, `/rules/*`, `/api/geo` (JSON), `/p/<code>` (shell
   fallback), security headers. Open items: enable anonymous sign-ins and set the Site
-  URL in Supabase, since guest play fails until then. The repo has no base SQL for
-  `profiles` / `game_results` (the original project created them outside `supabase/`),
-  so leaderboards and profiles need that schema written before they work.
+  URL in Supabase, since guest play fails until then.
+- **2026-11-07**: Added `supabase/00-base-schema.sql` (the `profiles` and `game_results`
+  tables, RLS, and the signup trigger that no file created) and `supabase/README.md`
+  with the verified run order for all 26 files plus the dashboard settings.
+  `results-hardening.sql` now pins its three legacy functions only if they exist.
+  Verified on Postgres 15 with Supabase stubs: every file runs, signup creates a
+  profile, `record_bot_result` enforces the daily's one attempt, other players can't
+  read your rows, and the boards and `public_profile` return the data.

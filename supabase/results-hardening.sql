@@ -123,9 +123,20 @@ alter table public.profiles add constraint profiles_card_back_shape
     check (equipped_card_back is null or char_length(equipped_card_back) <= 32) not valid;
 
 -- Database linter: search_path was not pinned on these three.
-alter function public.commit_move(uuid, integer, jsonb, jsonb) set search_path = public, pg_temp;
-alter function public.generate_room_code() set search_path = public, pg_temp;
-alter function public.update_updated_at() set search_path = public, pg_temp;
+-- They belong to the retired Supabase-broadcast multiplayer path and do not
+-- exist in a fresh project, so each is pinned only if it is present.
+do $$
+begin
+    if to_regprocedure('public.commit_move(uuid, integer, jsonb, jsonb)') is not null then
+        alter function public.commit_move(uuid, integer, jsonb, jsonb) set search_path = public, pg_temp;
+    end if;
+    if to_regprocedure('public.generate_room_code()') is not null then
+        alter function public.generate_room_code() set search_path = public, pg_temp;
+    end if;
+    if to_regprocedure('public.update_updated_at()') is not null then
+        alter function public.update_updated_at() set search_path = public, pg_temp;
+    end if;
+end $$;
 
 -- A trigger function; nobody should be able to call it over the API.
 revoke execute on function public.create_profile_for_user() from public, anon, authenticated;
@@ -135,3 +146,4 @@ revoke execute on function public.create_profile_for_user() from public, anon, a
 --
 -- revoke insert on public.game_results from anon, authenticated;
 -- drop policy if exists "Users can insert own results" on public.game_results;
+-- drop policy if exists game_results_insert_own on public.game_results;  -- name used by 00-base-schema.sql

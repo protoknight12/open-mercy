@@ -90,7 +90,8 @@ npm install
 1. Create a project at [supabase.com](https://supabase.com)
 2. Copy your project URL and anon key from **Settings > API**
 3. Enable **anonymous sign-ins** under **Authentication > Settings** (required for guest play)
-4. Set the **Site URL** under **Authentication > URL Configuration** to your deploy URL (e.g. `https://open-mercy.com`)
+4. Set the **Site URL** under **Authentication > URL Configuration** to your deploy URL (e.g. `https://open-mercy.vercel.app`)
+5. Run the SQL files in the SQL Editor, starting with `supabase/00-base-schema.sql`, in the order listed in [supabase/README.md](supabase/README.md)
 5. Create your env file:
 
 ```bash
