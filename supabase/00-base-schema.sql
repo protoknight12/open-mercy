@@ -132,3 +132,27 @@ create trigger on_auth_user_confirmed
     after update of email_confirmed_at on auth.users
     for each row when (old.email_confirmed_at is null and new.email_confirmed_at is not null)
     execute function public.create_profile_for_user();
+
+-- ============================== feedback ==============================
+-- The in-game feedback form (components/FeedbackModal.vue) inserts here.
+-- Anyone may submit; nobody can read submissions through the API. Read them
+-- in the Table Editor or SQL Editor. Until this table exists, the form falls
+-- back to opening a prefilled GitHub issue.
+create table if not exists public.feedback (
+    id         bigint generated always as identity primary key,
+    message    text not null check (char_length(message) between 1 and 4000),
+    email      text check (email is null or char_length(email) <= 320),
+    user_id    uuid references auth.users (id) on delete set null,
+    page       text check (page is null or char_length(page) <= 500),
+    user_agent text check (user_agent is null or char_length(user_agent) <= 500),
+    created_at timestamptz not null default now()
+);
+
+alter table public.feedback enable row level security;
+
+drop policy if exists feedback_insert_any on public.feedback;
+create policy feedback_insert_any on public.feedback
+    for insert to anon, authenticated
+    with check (user_id is null or user_id = auth.uid());
+
+grant insert on public.feedback to anon, authenticated;

@@ -1,19 +1,20 @@
 /* Shared styles for the static guide pages under /rules/. */
 :root {
-  --bg: #0a0a0b;
-  --surface: #18191b;
-  --text: #e6e6e6;
-  --text-dim: #a1a1aa;
-  --text-muted: #6a6a72;
-  --red: #ff2a2a;
-  --red-dim: #801515;
-  --yellow: #ffcc00;
-  --blue: #00f3ff;
-  --green: #00ff66;
-  --border: #2a2a2a;
-  --display-font: 'Black Ops One', cursive;
-  --body-font: 'Chakra Petch', sans-serif;
-  --mono-font: 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+  /* Sky Arena palette, matching the app (frontend/src/style.css). */
+  --bg: #1a7fe0;
+  --surface: #2a5fd0;
+  --text: #ffffff;
+  --text-dim: #e2edff;
+  --text-muted: #b9cdf3;
+  --red: #ff3d4f;
+  --red-dim: #b3162a;
+  --yellow: #ffc928;
+  --blue: #3fe0ff;
+  --green: #84dc3a;
+  --border: rgba(255, 255, 255, 0.55);
+  --display-font: 'Lilita One', 'Arial Rounded MT Bold', sans-serif;
+  --body-font: 'Nunito', 'Segoe UI', Roboto, sans-serif;
+  --mono-font: 'Nunito', 'Segoe UI', Roboto, sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -29,7 +30,7 @@ body {
 header {
   padding: 0.75rem 0;
   border-bottom: 1px solid rgba(255, 204, 0, 0.08);
-  background: linear-gradient(180deg, rgba(10,10,11,0.95), rgba(10,10,11,0.7));
+  background: linear-gradient(180deg, rgba(23, 63, 158,0.95), rgba(23, 63, 158,0.7));
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
@@ -146,7 +147,7 @@ figure.shot figcaption { font-size: 0.85rem; color: var(--text-muted); text-alig
 
 /* TOC */
 .toc {
-  background: rgba(0,0,0,0.4);
+  background: rgba(13, 42, 107,0.4);
   border: 1px solid var(--border);
   padding: 1.5rem 2rem;
   margin: 2rem 0 3rem;
@@ -201,7 +202,7 @@ li { margin-bottom: 0.5rem; }
   border-bottom: 1px solid var(--border);
 }
 .card-table th {
-  background: rgba(0,0,0,0.4);
+  background: rgba(13, 42, 107,0.4);
   font-family: var(--display-font);
   letter-spacing: 1px;
   font-size: 0.8rem;
@@ -255,7 +256,7 @@ section p a:hover,
 
 /* Final CTA */
 .final-cta {
-  background: rgba(0,0,0,0.5);
+  background: rgba(13, 42, 107,0.5);
   border: 2px solid var(--red);
   padding: 3rem 2rem;
   text-align: center;
@@ -266,7 +267,7 @@ section p a:hover,
 
 /* Footer */
 footer {
-  background: rgba(0,0,0,0.7);
+  background: rgba(13, 42, 107,0.7);
   border-top: 1px solid var(--border);
   padding: 1rem 1.5rem;
   text-align: center;
@@ -290,3 +291,37 @@ footer a:hover { color: var(--yellow); }
   .card-table td:first-child { min-width: 110px; }
 
 }
+
+/* Sky Arena overrides: open-sky page, glossy royal-blue header and cards. */
+body {
+  background:
+    radial-gradient(ellipse 22% 9% at 12% 14%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(ellipse 26% 10% at 86% 9%, rgba(255, 255, 255, 0.45), transparent 70%),
+    linear-gradient(180deg, #1676dc 0%, #4cc0ff 60%, #6fd3ff 100%);
+  background-attachment: fixed;
+}
+header {
+  background: linear-gradient(180deg, #2f6be0 0%, #1d4fbf 100%);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.85);
+  backdrop-filter: none;
+}
+h1, h2, h3 { text-shadow: 0 2px 0 #0d2a6b, 0 0 6px rgba(13, 42, 107, 0.45); }
+section, .toc, .callout, .faq-item, .card-table, table {
+  background: linear-gradient(180deg, #2a5fd0 0%, #173f9e 100%);
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  box-shadow: 0 5px 0 rgba(13, 42, 107, 0.45);
+}
+section, .toc, .faq-item { padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.btn, a.btn {
+  border-radius: 9999px;
+  border: 3px solid #fff;
+  box-shadow: 0 5px 0 rgba(13, 42, 107, 0.45);
+  font-family: var(--display-font);
+}
+a { color: #ffe066; }
+.btn-ghost, a.btn-ghost {
+  background: linear-gradient(180deg, #3f7cf0 0%, #2552c4 100%);
+  color: #fff;
+}
+.btn-ghost:hover, a.btn-ghost:hover { color: #fff; filter: brightness(1.08); }

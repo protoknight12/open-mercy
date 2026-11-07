@@ -89,6 +89,22 @@ const submitting = ref(false)
 const submitted = ref(false)
 const error = ref('')
 
+const ISSUES_URL = 'https://github.com/protoknight12/open-mercy/issues/new'
+
+function isMissingTable(e: { code?: string; message?: string }): boolean {
+  // PGRST205: table not in the API schema cache; 42P01: undefined table.
+  return e.code === 'PGRST205' || e.code === '42P01' || /could not find the table/i.test(e.message ?? '')
+}
+
+function openIssueFallback(message: string) {
+  const params = new URLSearchParams({
+    title: `Feedback: ${message.slice(0, 60)}`,
+    body: `${message}\n\n(Sent from the in-game feedback form.)`,
+    labels: 'feedback',
+  })
+  window.open(`${ISSUES_URL}?${params}`, '_blank', 'noopener')
+}
+
 async function submit() {
   if (!message.value.trim()) return
   submitting.value = true
@@ -104,25 +120,17 @@ async function submit() {
 
   try {
     const { error: dbError } = await supabase.from('feedback').insert(payload)
-    if (dbError) throw dbError
-
-    fetch('https://formsubmit.co/ajax/shekhaliul44@gmail.com', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        _subject: 'Open Mercy - New feedback',
-        _template: 'box',
-        message: payload.message,
-        reply_to: payload.email || 'no-reply@open-mercy.com',
-        user_id: payload.user_id || 'guest',
-        page: payload.page,
-        user_agent: payload.user_agent,
-      }),
-    }).catch(() => { /* email is best-effort; supabase is source of truth */ })
-
+    if (dbError) {
+      // The feedback table (supabase/00-base-schema.sql) is not installed yet:
+      // hand the message to the project's public issue tracker instead of
+      // losing it. Only the message travels; never the email or user id.
+      if (isMissingTable(dbError)) {
+        openIssueFallback(payload.message)
+        submitted.value = true
+        return
+      }
+      throw dbError
+    }
     submitted.value = true
   } catch (e: any) {
     error.value = e?.message || 'Could not send feedback. Try again?'

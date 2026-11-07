@@ -185,92 +185,13 @@
     }
     </script>
 
-    <!-- AdSense site verification without ad serving: ads run only on the static
-         guide pages, never beside the game. The app still loads Google's consent
-         message (the AdSense Privacy & messaging CMP) so EEA/UK consent and the
-         footer's Privacy settings keep working here. -->
-    <meta name="google-adsense-account" content="ca-pub-5481263585202262">
     <script>
-      // Consent Mode v2: Google tags start denied in the EEA, UK and Switzerland
-      // until the AdSense consent message (Google's certified CMP) records a choice.
-      // Queued before any Google script is requested, so nothing runs ahead of it.
+      // Analytics and ads are off. This fork removed the original project's
+      // Google Analytics, Google Ads and AdSense IDs, which would have sent
+      // visitor data and ad revenue to that project's accounts. track() calls
+      // queue here harmlessly until you add a measurement ID of your own.
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],
-        wait_for_update: 500
-      });
-
-      // The consent message loads async on arrival, so a visitor who has to answer
-      // it sees it while the landing page settles. Waiting for the first tap put it
-      // on top of the game, because that tap was usually Play. An immediate click on
-      // a slow connection can still beat it.
-      (function () {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://fundingchoicesmessages.google.com/i/pub-5481263585202262?ers=1';
-        document.head.appendChild(s);
-      })();
-
-      // gtag.js for GA and Ads was most of the page's remaining blocking time in
-      // PageSpeed, so it still waits for the first scroll, tap or key press, or
-      // 15 s if there is none. gtag() calls made before then wait in dataLayer.
-      // ponytail: a visit that leaves within 15 s without touching the page is
-      // not counted in GA; shorten the fallback if that number matters.
-      window.whenEngaged = function (fn) {
-        var events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
-        var done = false;
-        var run = function () {
-          if (done) return;
-          done = true;
-          events.forEach(function (e) { window.removeEventListener(e, run); });
-          fn();
-        };
-        events.forEach(function (e) { window.addEventListener(e, run, { passive: true }); });
-        setTimeout(run, 15000);
-      };
-    </script>
-    <script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
-
-    <!-- Google Analytics + Google Ads. Production hostnames only: keeps
-         forks running our measurement id, per-branch previews, and localhost
-         out of the property. gtag stays defined so track() calls are inert
-         no-ops everywhere else. -->
-    <script>
-      var GA_HOSTS = ['open-mercy.com', 'www.open-mercy.com', 'uno-no-mercy.com', 'www.uno-no-mercy.com'];
-      var GA_ENABLED = GA_HOSTS.indexOf(location.hostname) !== -1;
-      if (GA_ENABLED) {
-        whenEngaged(function () {
-          var gaLoader = document.createElement('script');
-          gaLoader.async = true;
-          gaLoader.src = 'https://www.googletagmanager.com/gtag/js?id=G-HF9GCTVQ7J';
-          document.head.appendChild(gaLoader);
-        });
-        gtag('js', new Date());
-        gtag('config', 'G-HF9GCTVQ7J');
-        gtag('config', 'AW-18192424425');
-      }
-
-      // Google Ads conversion tracking on click
-      window.gtag_report_conversion = function(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        if (!GA_ENABLED) { callback(); return false; }
-        gtag('event', 'conversion', {
-          'send_to': 'AW-18192424425/-S5SCMTPnbQcEOm76eJD',
-          'value': 1.0,
-          'currency': 'INR',
-          'event_callback': callback
-        });
-        return false;
-      };
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
