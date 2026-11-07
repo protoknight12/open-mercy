@@ -3,7 +3,18 @@
 Every file here is run by hand in the Supabase **SQL Editor**. All of them are
 idempotent, so re-running one is safe.
 
-## Fresh project: run order
+## Fresh project: the one-paste way (recommended)
+
+Open **`setup-all.sql`**, copy the whole file, paste it into a new query in
+the SQL Editor and press **Run**. It contains every file below in the right
+order and ends by refreshing the API's schema cache. It runs as one
+transaction: if anything fails, nothing is applied, and the error names the
+statement. Running it again is safe.
+
+After editing any individual file, regenerate it with
+`bash supabase/build-setup.sh`.
+
+## Fresh project: file by file
 
 Run these top to bottom. The order matters: later files `alter` columns or
 read functions that earlier ones create. It was verified end to end on a
@@ -17,7 +28,7 @@ clean Postgres 15 with Supabase's `auth` and `storage` schemas stubbed.
 | 4 | `cosmetics.sql` | `profiles.equipped_card_back` |
 | 5 | `avatars.sql` | `profiles.avatar_version` and the `avatars` storage bucket |
 | 6 | `presence.sql` | `profiles.last_seen_at`, `touch_presence`, `online_now` |
-| 7 | `leaderboards.sql` | daily and weekly boards (v1) |
+| 7 | `leaderboards.sql` | daily and weekly boards v1. Optional on a fresh project; never run it after #8, which replaces it |
 | 8 | `leaderboards-v2.sql` | `share_code`, `country`, boards v2 |
 | 9 | `leaderboards-alltime.sql` | all-time board |
 | 10 | `results-hardening.sql` (STEP 1) | `record_bot_result`, narrowed profile writes |

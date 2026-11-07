@@ -32,11 +32,13 @@ alter table public.poll_votes enable row level security;
 -- users freely, so the primary key stops a second vote from one account, not a
 -- determined person from making more accounts. Read the tally with the
 -- engaged-players query when the answer decides something expensive.
+drop policy if exists "vote as yourself" on public.poll_votes;
 create policy "vote as yourself"
     on public.poll_votes for insert
     to authenticated
     with check (auth.uid() = user_id);
 
+drop policy if exists "read your own vote" on public.poll_votes;
 create policy "read your own vote"
     on public.poll_votes for select
     to authenticated
