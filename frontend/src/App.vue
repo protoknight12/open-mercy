@@ -308,7 +308,12 @@ onMounted(async () => {
   // Reconnect: if we were in an in-progress game when the tab reloaded/dropped,
   // re-enter it instead of stranding the player in the lobby.
   if (authStore.isAuthenticated) {
-    await mpStore.restoreActiveGame()
+    // An invite link is a fresh, deliberate choice: it outranks resuming the
+    // last room. Restoring first put the game view over the lobby, so the
+    // lobby's auto-join never ran and the invite was silently ignored. If the
+    // invite is for the stored room, the auto-join simply re-enters it.
+    const inviteCode = new URLSearchParams(window.location.search).get('join') || ''
+    if (!isRoomCode(inviteCode)) await mpStore.restoreActiveGame()
   } else {
     // An invite link shouldn't demand a PLAY NOW click: sign the guest in on
     // arrival and let the lobby's auto-join take over. No play_clicked here —
