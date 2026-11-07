@@ -7,7 +7,8 @@
  */
 import { put } from '@vercel/blob'
 
-export const config = { runtime: 'edge' }
+// Node.js runtime (the default): @vercel/blob depends on Node modules the Edge
+// runtime cannot load.
 
 const MAX_BODY = 8_000
 
@@ -21,8 +22,7 @@ function json(body: unknown, status = 200): Response {
 const clip = (v: unknown, n: number): string | null =>
     typeof v === 'string' && v.trim() ? v.trim().slice(0, n) : null
 
-export default async function handler(request: Request): Promise<Response> {
-    if (request.method !== 'POST') return json({ ok: false, error: 'method' }, 405)
+export async function POST(request: Request): Promise<Response> {
     const raw = await request.text()
     if (raw.length > MAX_BODY) return json({ ok: false, error: 'too_large' }, 413)
 
