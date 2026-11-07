@@ -8,7 +8,7 @@
 
     <title>Privacy policy - Open Mercy</title>
     <meta name="description" content="What Open Mercy stores, what it does not, and who else sees it. Plain language, no legal padding. Free browser card game, no downloads." />
-    <meta name="author" content="alii13" />
+    <meta name="author" content="protoknight12" />
     <link rel="canonical" href="https://open-mercy.com/privacy/" />
     <meta name="robots" content="index, follow" />
 
@@ -107,7 +107,7 @@
       </nav>
 
       <h1>Privacy policy</h1>
-      <p class="updated">Last updated 28 September 2026</p>
+      <p class="updated">Last updated 7 November 2026</p>
 
       <p class="lead">
         Open Mercy is a free browser card game. There is nothing to buy, so there is
@@ -243,9 +243,8 @@
         <div class="policy-item never">
           <h3>Voice chat audio</h3>
           <p>
-            Voice in a game room is carried live by Cloudflare RealtimeKit and is
-            never recorded, stored or transcribed. Joining is opt-in, only seated
-            players can connect, and the microphone is off until you turn it on.
+            This site does not offer voice chat, so it never asks for your
+            microphone and never handles any audio.
           </p>
         </div>
       </section>
@@ -265,6 +264,10 @@
           </li>
           <li>
             In multiplayer, the other players at the table see your display name.
+            A multiplayer room runs in the browser of the player who created it, so
+            that player's device processes every hand at the table. Everything sent
+            between players and the room is encrypted end to end, so nobody else
+            can read it on the way.
           </li>
           <li>
             A kill card link you share shows the display names of both players
@@ -286,27 +289,11 @@
         <dl class="parties">
           <div>
             <dt>Supabase</dt>
-            <dd>Database and sign-in. This is where accounts, profiles and game results live.</dd>
+            <dd>Database, sign-in, and the realtime channel that carries multiplayer rooms. This is where accounts, profiles and game results live.</dd>
           </div>
           <div>
-            <dt>Cloudflare</dt>
-            <dd>Hosting, CDN and the multiplayer game servers. Handles the network requests that deliver the game.</dd>
-          </div>
-          <div>
-            <dt>Cloudflare RealtimeKit</dt>
-            <dd>Carries voice chat audio between players in a room, only if you join voice.</dd>
-          </div>
-          <div>
-            <dt>Google Analytics</dt>
-            <dd>Aggregate usage measurement: which screens get used, where people drop off.</dd>
-          </div>
-          <div>
-            <dt>Google Ads</dt>
-            <dd>A conversion tag that records that a visit from an ad led to someone playing.</dd>
-          </div>
-          <div>
-            <dt>Google AdSense</dt>
-            <dd>Shows the ads on the site. Google and its partners use cookies to decide which ads to show.</dd>
+            <dt>Vercel</dt>
+            <dd>Hosting and CDN. Handles the network requests that deliver the game, and stores feedback messages privately (Vercel Blob).</dd>
           </div>
           <div>
             <dt>Google Sign-In</dt>
@@ -316,49 +303,16 @@
             <dt>Google Fonts</dt>
             <dd>Serves the two typefaces the game uses, which means your browser requests them from Google.</dd>
           </div>
-          <div>
-            <dt>FormSubmit</dt>
-            <dd>Relays feedback messages to the developer's inbox.</dd>
-          </div>
         </dl>
       </section>
 
       <section id="analytics">
         <h2>Analytics and ads</h2>
         <p>
-          Google Analytics is used to see how the game is actually played in
-          aggregate: which modes get opened, which screens people leave from, whether
-          a change made things better or worse. It reports patterns across everyone,
-          not a dossier on you.
-        </p>
-        <p>
-          A Google Ads conversion tag fires when someone who arrived from an ad starts
-          playing, which is how ad spend is measured. Neither of these is used to
-          target you with advertising elsewhere.
-        </p>
-        <p>
-          The site also shows ads through Google AdSense. Google, and the third-party
-          vendors it works with, use cookies to serve ads based on your earlier visits
-          to this site and to other sites. Google's advertising cookies let it and its
-          partners pick ads for you based on those visits. You can turn off
-          personalized ads in
-          <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google's ad settings</a>,
-          and opt out of other vendors' cookies at
-          <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">aboutads.info</a>.
-          You will still see ads after opting out; they just will not be based on
-          your browsing.
-        </p>
-        <p>
-          If you visit from the EU, the EEA, the UK or Switzerland, a consent
-          message from Google appears before any ad or analytics cookie is set.
-          Until you answer it, Google Analytics and Google Ads run with cookies
-          turned off. You can change or withdraw your choice at any time with the
-          Privacy settings link in the footer of any page.
-        </p>
-        <p>
-          All of these set cookies. A browser-level ad or tracker blocker will stop them, and
-          the game works perfectly well with them blocked. Nothing about playing
-          depends on analytics loading.
+          There are none. This site runs no analytics, no advertising and no
+          tracking pixels, and it sets no advertising or analytics cookies. The
+          only things kept in your browser are the sign-in session and game
+          preferences described above.
         </p>
       </section>
 
@@ -403,7 +357,7 @@
         <h2>Contact</h2>
         <p>
           Use the feedback button inside the game, or open an issue on
-          <a href="https://github.com/alii13" target="_blank" rel="noopener noreferrer">GitHub</a>.
+          <a href="https://github.com/protoknight12/open-mercy/issues" target="_blank" rel="noopener noreferrer">GitHub</a>.
           Questions about your data, including deletion requests, are answered at the
           same address.
         </p>
@@ -424,8 +378,8 @@
     </main>
 
     <footer>
-      Built by
-      <a href="https://github.com/alii13" target="_blank" rel="noopener noreferrer">alii13</a>
+      Run by <a href="https://github.com/protoknight12/open-mercy" target="_blank" rel="noopener noreferrer">protoknight12</a>
+      &middot; based on Open Mercy by <a href="https://github.com/alii13" target="_blank" rel="noopener noreferrer">alii13</a>
       &middot; <a href="/how-to-play/">How to play</a>
       &middot; <a href="/rules/">Rules</a>
       &middot; <a href="/strategy/">Strategy</a>
@@ -434,8 +388,6 @@
       &middot; <a href="/contact/">Contact</a>
       &middot; <a href="/privacy/">Privacy</a>
       &middot; <a href="/terms/">Terms</a>
-      <span class="fc-settings" hidden>&middot; <a href="#" onclick="window.googlefc = window.googlefc || {}; googlefc.callbackQueue = googlefc.callbackQueue || []; googlefc.callbackQueue.push(function () { googlefc.showRevocationMessage(); }); return false;">Privacy settings</a></span>
-      <script>(window.googlefc = window.googlefc || {}).callbackQueue = window.googlefc.callbackQueue || []; googlefc.callbackQueue.push({ CONSENT_DATA_READY: function () { if (typeof googlefc.showRevocationMessage === 'function') document.querySelector('.fc-settings').hidden = false; } });</script>
     </footer>
   </body>
 </html>

@@ -1,0 +1,8 @@
+{
+  "name": "open-mercy-vercel-functions",
+  "private": true,
+  "description": "Dependencies for the Vercel functions in api/. The app itself lives in frontend/.",
+  "dependencies": {
+    "@vercel/blob": "2.8.2"
+  }
+}

@@ -598,12 +598,13 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
     }
 
     // Peer-hosted rooms have no server to save results, so each seated player
-    // files their own row through record_room_result (supabase/room-results.sql).
-    // Feature-detected: until that SQL has run the call fails once and stops.
-    let roomResultsUnavailable = false
+    // files their own row: through record_room_result (supabase/room-results.sql)
+    // when installed, otherwise through the already-live record_bot_result under
+    // a 'bot-<startedAt>' id, which every board counts. Same player-reported trust
+    // model either way; one row per player per game via the unique index.
+    let roomResultsRpcMissing = false
     const filedGames = new Set<string>()
     async function fileRoomResult(winnerId: string | null) {
-        if (roomResultsUnavailable) return
         // Let the snapshot that follows GAME_OVER land, so counts are final.
         await new Promise(r => setTimeout(r, 600))
         const v = view.value
@@ -615,8 +616,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
         const result = winnerId === me ? 'won' : seat.isEliminated ? 'eliminated' : 'lost'
         const startedMs = Number(gameId.split('-').pop())
         const s = mpStats.value
-        const { data, error: rpcError } = await supabase.rpc('record_room_result', {
-            p_game_id: gameId,
+        const params = {
             p_result: result,
             p_opponent_count: Math.max(1, v.players.length - 1),
             p_cards_remaining: result === 'won' ? 0 : (v.you?.hand.length ?? seat.handCount),
@@ -631,13 +631,17 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
             p_uno_calls: s.unoCalls,
             p_uno_penalties: s.unoPenalties,
             p_game_duration_secs: Number.isFinite(startedMs) ? Math.max(0, Math.round((Date.now() - startedMs) / 1000)) : 0,
-        })
-        if (rpcError) {
-            // PGRST202: the function is not installed yet. Stop trying this session.
-            if (rpcError.code === 'PGRST202') roomResultsUnavailable = true
-            return
         }
-        track('mp_result_recorded', { result, outcome: String(data) })
+        if (!roomResultsRpcMissing) {
+            const { data, error: rpcError } = await supabase.rpc('record_room_result', { p_game_id: gameId, ...params })
+            if (!rpcError) { track('mp_result_recorded', { result, outcome: String(data), via: 'room' }); return }
+            // PGRST202: not installed. Fall back for the rest of the session.
+            if (rpcError.code !== 'PGRST202') return
+            roomResultsRpcMissing = true
+        }
+        if (!Number.isFinite(startedMs)) return
+        const { data, error: botError } = await supabase.rpc('record_bot_result', { p_game_id: 'bot-' + startedMs, ...params })
+        if (!botError) track('mp_result_recorded', { result, outcome: String(data), via: 'bot' })
     }
 
     function scheduleReconnect() {

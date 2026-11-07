@@ -119,11 +119,29 @@ async function submit() {
   }
 
   try {
+    // 1) The site's own feedback endpoint (api/feedback.ts → private Vercel
+    //    Blob store). Only JSON counts: a missing function answers with the
+    //    SPA shell and a 200.
+    const sent = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).then(async (res) => {
+      if (!res.headers.get('content-type')?.includes('json')) return false
+      const body = await res.json().catch(() => null) as { ok?: boolean } | null
+      return res.ok && !!body?.ok
+    }).catch(() => false)
+    if (sent) {
+      submitted.value = true
+      return
+    }
+
+    // 2) The Supabase feedback table, if it has been installed.
     const { error: dbError } = await supabase.from('feedback').insert(payload)
     if (dbError) {
-      // The feedback table (supabase/00-base-schema.sql) is not installed yet:
-      // hand the message to the project's public issue tracker instead of
-      // losing it. Only the message travels; never the email or user id.
+      // 3) Neither is available: hand the message to the project's public
+      //    issue tracker instead of losing it. Only the message travels;
+      //    never the email or user id.
       if (isMissingTable(dbError)) {
         openIssueFallback(payload.message)
         submitted.value = true

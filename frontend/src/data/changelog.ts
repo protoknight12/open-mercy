@@ -105,14 +105,6 @@ export const CHANGELOG: ChangelogEntry[] = [
         cta: { label: 'EDIT MY NAME', ownProfile: true },
     },
     {
-        id: '2026-10-13',
-        level: 'loud',
-        tag: 'NEW',
-        title: 'Join Open Mercy on Telegram',
-        body: "We now have a Telegram channel. New ranks, rule changes and events land there first. Join to hear about them before anyone else.",
-        cta: { label: 'JOIN ON TELEGRAM', href: 'https://t.me/openmercy' },
-    },
-    {
         id: '2026-10-12T22:00Z',
         level: 'quiet',
         tag: 'IMPROVED',
