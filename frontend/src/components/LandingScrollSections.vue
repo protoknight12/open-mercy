@@ -107,7 +107,7 @@
           </div>
           <div class="hud-line" :ref="el => setRef('hud', 6, el)"><span class="hud-prompt accent-green">&gt;</span> play_card(<span class="accent-red">"red-7"</span>)<span class="hud-ok" ref="hudOkEl"> OK</span></div>
         </div>
-        <a class="agent-cta" ref="agentCtaEl" href="https://github.com/alii13/Uno-no-mercy#playing-as-an-ai-agent-webmcp" target="_blank" rel="noopener">
+        <a class="agent-cta" ref="agentCtaEl" href="https://github.com/protoknight12/open-mercy#playing-as-an-ai-agent-webmcp" target="_blank" rel="noopener">
           <Code :size="16" :stroke-width="2" aria-hidden="true" />
           HOW AGENTS PLAY
         </a>

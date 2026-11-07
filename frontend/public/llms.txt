@@ -13,7 +13,7 @@ Open Mercy is an independent, open-source web game. Its ruleset was popularized 
 - Guest play; an optional free account saves stats, ranks and friends
 - 2 to 20 players per room, with a room code or invite link
 - Solo mode against a ladder of AI opponents, plus a daily deal that everyone plays on the same shuffle
-- Open source under the MIT license: [github.com/alii13/open-mercy](https://github.com/alii13/open-mercy)
+- Open source under the MIT license: [github.com/alii13/open-mercy](https://github.com/protoknight12/open-mercy)
 
 ## Rules implemented
 

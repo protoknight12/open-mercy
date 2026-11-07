@@ -122,7 +122,7 @@
               </p>
               <p class="about-line subtle">
                 <a href="/rules/" target="_blank">Rules guide</a>
-                · <a href="https://github.com/alii13/Uno-no-mercy" target="_blank" rel="noopener noreferrer">Source</a>
+                · <a href="https://github.com/protoknight12/open-mercy" target="_blank" rel="noopener noreferrer">Source</a>
               </p>
             </section>
           </div>
