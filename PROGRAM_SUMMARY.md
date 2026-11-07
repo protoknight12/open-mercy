@@ -151,3 +151,11 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
 - **2026-11-07**: Loud changelog entry `2026-11-07` announcing the rules and the new look.
 - **2026-11-07**: Added the Vercel config and edge-function ports. New GitHub repo:
   `protoknight12/open-mercy`.
+- **2026-11-07**: Deployed to Vercel at https://open-mercy.vercel.app. The project is
+  connected to the GitHub repo, so pushes to `main` auto-deploy. Supabase env vars are
+  set for production and preview (project `virnfnbbakymsdxyrbuy`, publishable key).
+  Verified: pages, deep links, `/rules/*`, `/api/geo` (JSON), `/p/<code>` (shell
+  fallback), security headers. Open items: enable anonymous sign-ins and set the Site
+  URL in Supabase, since guest play fails until then. The repo has no base SQL for
+  `profiles` / `game_results` (the original project created them outside `supabase/`),
+  so leaderboards and profiles need that schema written before they work.
