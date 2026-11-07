@@ -41,3 +41,6 @@ Thumbs.db
 *.local
 .vercel
 .env*
+
+# Generated browser bundle of the game server (scripts/build-room-host.mjs)
+frontend/src/p2p/generated/*.js

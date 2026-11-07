@@ -48,8 +48,10 @@ const SPEAKING_HOLD_MS = 1200
 export const useVoiceStore = defineStore('voice', () => {
     const state = ref<VoiceState>('off')
     const muted = ref(false)
-    /** false once the server answers voice-unavailable — the UI hides the feature. */
-    const available = ref(true)
+    /** false once the server answers voice-unavailable — the UI hides the feature.
+     *  Peer-hosted rooms (no game server) have no voice service at all, so the
+     *  feature starts hidden there instead of offering a button that fails. */
+    const available = ref((import.meta.env.VITE_GAME_SERVER_URL || 'p2p') !== 'p2p')
     const errorText = ref<string | null>(null)
     /** Supabase userIds currently in the voice channel (including me when live). */
     const voiceUserIds = ref(new Set<string>())

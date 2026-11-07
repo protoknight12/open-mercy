@@ -12,9 +12,11 @@
  */
 
 import { ref, computed, onUnmounted } from 'vue'
+import { publicLiveTables } from '../p2p/lobby'
 
-const GAME_SERVER = (import.meta.env.VITE_GAME_SERVER_URL as string | undefined)
-    || 'https://uno-game-server.shekhaliul44.workers.dev'
+// Same switch as the multiplayer store: 'p2p' (or unset) reads the
+// peer-hosted directory on Supabase Realtime presence.
+const GAME_SERVER = (import.meta.env.VITE_GAME_SERVER_URL as string | undefined) || 'p2p'
 
 export interface LiveTable {
     code: string
@@ -37,6 +39,11 @@ export function useLiveTables() {
     let timer: ReturnType<typeof setInterval> | null = null
 
     async function refresh() {
+        if (GAME_SERVER === 'p2p') {
+            tables.value = await publicLiveTables()
+            loaded.value = true
+            return
+        }
         try {
             const res = await fetch(`${GAME_SERVER}/live-tables`)
             if (!res.ok) return

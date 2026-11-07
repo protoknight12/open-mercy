@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "build:ci": "vite build",
+    "build:ci": "node scripts/build-room-host.mjs && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "predev": "node scripts/build-room-host.mjs",
+    "prebuild": "node scripts/build-room-host.mjs",
+    "pretest": "node scripts/build-room-host.mjs"
   },
   "dependencies": {
     "@cloudflare/realtimekit": "2.0.0",

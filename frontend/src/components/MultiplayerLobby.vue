@@ -350,7 +350,7 @@
             <span class="table-label">AT THE TABLE</span>
             <!-- Connected players, matching the solo CTA and the server's
                  own start gate - roster ghosts are seats, not people. -->
-            <span class="table-count">{{ mpStore.presentUserIds.length }}<span class="table-count-cap"> / 20</span></span>
+            <span class="table-count">{{ mpStore.presentUserIds.length }}<span class="table-count-cap"> / 6</span></span>
           </div>
 
           <div class="players-list">

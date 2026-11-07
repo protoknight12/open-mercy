@@ -10,6 +10,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import type { PersonalView, ServerMsg } from '@protocol'
 
+// These specs cover voice on the Cloudflare game server. Peer-hosted rooms
+// (the default when no server URL is set) have no voice service, and the
+// store reads the URL at import time, so the stub must run before imports.
+vi.hoisted(() => { vi.stubEnv('VITE_GAME_SERVER_URL', 'https://game-server.test') })
+
 vi.mock('../../lib/supabase', () => ({
     supabase: {
         auth: {

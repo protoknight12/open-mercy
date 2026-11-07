@@ -11,12 +11,26 @@ import { useVoiceStore } from './voiceStore'
 import type { ClientMsg, IntentAction, PersonalView, PresencePlayer, ServerMsg } from '@protocol'
 import { MAX_TURN_TIMEOUTS } from '@protocol'
 import { quickChatPhrase } from '@quickChat'
+import { ROOM_CODE_ALPHABET } from '@roomCode'
+import { openRoomSocket } from '../p2p/clientSocket'
+import { hostRoom, type RoomSocketLike } from '../p2p/roomHost'
+import { publicRoomCodes } from '../p2p/lobby'
 
 // The authoritative game server (Cloudflare Worker + one Durable Object per
 // room). The client is a thin mirror: it sends intents and renders the
 // personalized snapshots the room answers with. All rules run server-side —
 // opponents' hands never reach this client.
-const GAME_SERVER = (import.meta.env.VITE_GAME_SERVER_URL as string | undefined) || 'https://uno-game-server.shekhaliul44.workers.dev'
+// A Worker URL uses the authoritative Cloudflare game server. 'p2p' (or no
+// value) runs rooms in the host player's browser over Supabase Realtime: see
+// src/p2p/. That needs no server at all, at the cost of the room living only
+// as long as the host's tab.
+const GAME_SERVER = (import.meta.env.VITE_GAME_SERVER_URL as string | undefined) || 'p2p'
+export const PEER_HOSTED = GAME_SERVER === 'p2p'
+
+function newRoomCode(): string {
+    const bytes = crypto.getRandomValues(new Uint8Array(6))
+    return Array.from(bytes, b => ROOM_CODE_ALPHABET[b % ROOM_CODE_ALPHABET.length]).join('')
+}
 const STORED_ROOM_KEY = 'uno_mp_room'
 
 /**
@@ -85,7 +99,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
 
     // --- Connection ---
     const realtimeStatus = ref<'CONNECTING' | 'SUBSCRIBED' | 'CLOSED'>('CLOSED')
-    let ws: WebSocket | null = null
+    let ws: RoomSocketLike | null = null
     let closedByUs = false
     let reconnectAttempts = 0
     let reconnectTimer: ReturnType<typeof setTimeout> | null = null
@@ -509,8 +523,17 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
         const prev = ws
         ws = null
         try { prev?.close() } catch { /* noop */ }
+        let socket: RoomSocketLike
+        try {
+            // Same-shaped socket either way: a real WebSocket to the Worker, or
+            // a peer-hosted room (local loopback or encrypted Realtime link).
+            socket = PEER_HOSTED ? await openRoomSocket(code) : new WebSocket(wsUrl(code)) as unknown as RoomSocketLike
+        } catch {
+            connectFailReason ??= 'socket_open_failed'
+            realtimeStatus.value = 'CLOSED'
+            return false
+        }
         return new Promise<boolean | 'superseded'>((resolve) => {
-            const socket = new WebSocket(wsUrl(code))
             ws = socket
             let settled = false
             const timer = setTimeout(() => {
@@ -587,7 +610,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
     }
 
     function sendMsg(msg: ClientMsg) {
-        if (ws?.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg))
+        if (ws?.readyState === 1) ws.send(JSON.stringify(msg))
     }
 
     /** Drop the socket and forget the room, without the leave ceremony —
@@ -620,7 +643,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
     /** Ask a player to this room. Resolves with the room's verdict, or
      *  'unavailable' if the answer never comes. */
     function sendInvite(userId: string): Promise<string> {
-        if (!roomCodeRef.value || ws?.readyState !== WebSocket.OPEN) return Promise.resolve('unavailable')
+        if (!roomCodeRef.value || ws?.readyState !== 1) return Promise.resolve('unavailable')
         invitePending.get(userId)?.('unavailable')
         return new Promise((resolve) => {
             const timer = setTimeout(() => {
@@ -701,6 +724,18 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
     async function createRoom(mode: StackingMode, isPublic: boolean): Promise<string | null> {
         const token = await accessToken()
         if (!token) { error.value = 'You must be logged in to create a game'; return null }
+        if (PEER_HOSTED) {
+            const hostUserId = authStore.user?.id
+            if (!hostUserId) { error.value = 'You must be logged in to create a game'; return null }
+            const code = newRoomCode()
+            try {
+                await hostRoom({ code, hostUserId, stackingMode: mode, isPublic })
+                return code
+            } catch {
+                error.value = 'Could not start the room. Check your connection and try again.'
+                return null
+            }
+        }
         try {
             const res = await fetch(`${GAME_SERVER}/rooms`, {
                 method: 'POST',
@@ -795,9 +830,11 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
         error.value = null
         resetState()
         try {
-            const codes = await fetch(`${GAME_SERVER}/public-rooms`)
-                .then(res => (res.ok ? (res.json() as Promise<string[]>) : []))
-                .catch(() => [] as string[])
+            const codes = PEER_HOSTED
+                ? await publicRoomCodes()
+                : await fetch(`${GAME_SERVER}/public-rooms`)
+                    .then(res => (res.ok ? (res.json() as Promise<string[]>) : []))
+                    .catch(() => [] as string[])
             for (const code of codes) {
                 // Each candidate is a fresh attempt — a rejected one (full,
                 // vanished) must not leave its verdict on screen over the

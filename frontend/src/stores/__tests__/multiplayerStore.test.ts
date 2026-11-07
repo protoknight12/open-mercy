@@ -8,6 +8,11 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+// These specs cover the Cloudflare game-server path. With no URL the app runs
+// peer-hosted rooms instead, and the URL is read at import time, so the stub
+// must run before the imports below.
+vi.hoisted(() => { vi.stubEnv('VITE_GAME_SERVER_URL', 'https://game-server.test') })
 import { createPinia, setActivePinia } from 'pinia'
 import type { PersonalView, ServerMsg } from '@protocol'
 import type { Card } from '../../types/card'
