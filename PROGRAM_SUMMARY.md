@@ -213,3 +213,16 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
   `00-base-schema.sql` / `setup-all.sql` (run it to collect feedback in Supabase).
 - **2026-11-07**: Fixed the waiting room seat counter ("/ 20" → "/ 6") and restyled the
   static guide pages (`rules/guide.css`) to the Sky Arena theme.
+- **2026-11-07**: Verified peer-hosted multiplayer on production
+  (https://open-mercy.vercel.app): a room hosted on the live site, joined by a second
+  identity, played both ways, including the official 2-player Reverse.
+- **2026-11-07**: An invite link (`?join=CODE`) now outranks auto-resuming the last room;
+  before, a stored room covered the lobby and the invite was ignored.
+- **2026-11-07**: Source and issue links now point at `protoknight12/open-mercy`. The
+  credits to alii13 stay (MIT attribution), as do the original Telegram channel and the
+  operator name in the terms and about pages; changing those is the owner's call.
+- **2026-11-07**: Online results in peer-hosted mode. `supabase/room-results.sql` (also in
+  `setup-all.sql`) adds `record_room_result`: each player files their own row, with id,
+  age, win and clamp checks, a rate limit and one row per game (verified on Postgres
+  15). The client feature-detects it, so online games start counting on the
+  leaderboards as soon as the SQL runs; until then nothing is recorded.

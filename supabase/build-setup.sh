@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 # again afterwards fails with "cannot change return type".
 ORDER=(
   00-base-schema profile-hardening guest-profile-trigger cosmetics avatars
-  presence leaderboards-v2 leaderboards-alltime results-hardening ranks
+  presence leaderboards-v2 leaderboards-alltime results-hardening room-results ranks
   profile-pages profile-activity profile-dossier badges badges-prestige
   friends friends-realtime friends-ping friends-recent invites invites-sent
   pulse polls daily-suspects username-suggestions

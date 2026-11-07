@@ -391,6 +391,7 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
                             duration_seconds: gameStartedAt ? Math.round((Date.now() - gameStartedAt) / 1000) : undefined,
                             rules: stackingMode.value,
                         })
+                        if (PEER_HOSTED) void fileRoomResult(ev.winnerId)
                         if (spectateStartedAt) {
                             track('mp_spectate_end', {
                                 via: 'game_over',
@@ -594,6 +595,49 @@ export const useMultiplayerStore = defineStore('multiplayer', () => {
                 if (!closedByUs && roomCodeRef.value) scheduleReconnect()
             }
         })
+    }
+
+    // Peer-hosted rooms have no server to save results, so each seated player
+    // files their own row through record_room_result (supabase/room-results.sql).
+    // Feature-detected: until that SQL has run the call fails once and stops.
+    let roomResultsUnavailable = false
+    const filedGames = new Set<string>()
+    async function fileRoomResult(winnerId: string | null) {
+        if (roomResultsUnavailable) return
+        // Let the snapshot that follows GAME_OVER land, so counts are final.
+        await new Promise(r => setTimeout(r, 600))
+        const v = view.value
+        const me = myUserId.value
+        const gameId = v?.gameId
+        const seat = v?.players.find(p => p.userId === me)
+        if (!v || !me || !gameId || !seat || filedGames.has(gameId)) return
+        filedGames.add(gameId)
+        const result = winnerId === me ? 'won' : seat.isEliminated ? 'eliminated' : 'lost'
+        const startedMs = Number(gameId.split('-').pop())
+        const s = mpStats.value
+        const { data, error: rpcError } = await supabase.rpc('record_room_result', {
+            p_game_id: gameId,
+            p_result: result,
+            p_opponent_count: Math.max(1, v.players.length - 1),
+            p_cards_remaining: result === 'won' ? 0 : (v.you?.hand.length ?? seat.handCount),
+            p_peak_cards: s.peakCards,
+            p_draw_cards_played: s.drawCardsPlayed,
+            p_wild_cards_played: s.wildCardsPlayed,
+            p_cards_played_total: s.cardsPlayedTotal,
+            p_skips_dealt: s.skipsDealt,
+            p_swaps_made: s.swapsMade,
+            p_draws_taken: s.drawsTaken,
+            p_biggest_stack_survived: s.biggestStackSurvived,
+            p_uno_calls: s.unoCalls,
+            p_uno_penalties: s.unoPenalties,
+            p_game_duration_secs: Number.isFinite(startedMs) ? Math.max(0, Math.round((Date.now() - startedMs) / 1000)) : 0,
+        })
+        if (rpcError) {
+            // PGRST202: the function is not installed yet. Stop trying this session.
+            if (rpcError.code === 'PGRST202') roomResultsUnavailable = true
+            return
+        }
+        track('mp_result_recorded', { result, outcome: String(data) })
     }
 
     function scheduleReconnect() {

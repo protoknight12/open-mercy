@@ -32,6 +32,7 @@ clean Postgres 15 with Supabase's `auth` and `storage` schemas stubbed.
 | 8 | `leaderboards-v2.sql` | `share_code`, `country`, boards v2 |
 | 9 | `leaderboards-alltime.sql` | all-time board |
 | 10 | `results-hardening.sql` (STEP 1) | `record_bot_result`, narrowed profile writes |
+| 10b | `room-results.sql` | `record_room_result`: saves online games from peer-hosted rooms |
 | 11 | `ranks.sql` | rank helpers |
 | 12 | `profile-pages.sql` | `public_profile` for `/p/<code>` |
 | 13 | `profile-activity.sql` | profile heatmap |
