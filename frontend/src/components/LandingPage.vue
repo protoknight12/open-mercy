@@ -709,7 +709,7 @@ function runHeroChoreography() {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   cursor: pointer;
@@ -721,7 +721,7 @@ function runHeroChoreography() {
 .rules-peek:hover { color: var(--text-primary); }
 
 .invite-banner {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.03em;
   color: var(--text-secondary);

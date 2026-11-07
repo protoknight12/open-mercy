@@ -44,7 +44,7 @@ function ensureTitleEl(): HTMLElement | null {
         zIndex: '60',
         opacity: '0',
         color: '#ffcc00',
-        fontFamily: "'Black Ops One', 'Impact', sans-serif",
+        fontFamily: "'Lilita One', 'Arial Rounded MT Bold', sans-serif",
         fontSize: 'clamp(4rem, 12vw, 9rem)',
         letterSpacing: '0.5em',
         textShadow: '0 0 30px rgba(255, 204, 0, 0.55), 0 0 4px rgba(255, 204, 0, 0.9)',

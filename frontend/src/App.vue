@@ -485,7 +485,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
 }
 
 .signin-toast__title {
-  font-family: 'Black Ops One', 'Impact', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   letter-spacing: 0.14em;
   color: #ff2a2a;
@@ -494,7 +494,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
 }
 
 .signin-toast__sub {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.72);
@@ -502,7 +502,7 @@ function startDailyGame(entry_point: 'lobby' | 'game_over') {
 }
 
 .signin-toast__retry {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   color: #fff;

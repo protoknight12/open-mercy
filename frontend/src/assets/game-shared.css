@@ -1828,3 +1828,75 @@ body.fx-ko-desat .game-view {
 }
 
 .overlay { background: radial-gradient(ellipse at center, rgba(22, 80, 190, 0.55), rgba(8, 28, 80, 0.85)); }
+
+/* ==========================================================================
+   SEATS AROUND THE TABLE
+   You sit at the bottom; opponents fill the left, top and right edges in turn
+   order (utils/seating.ts assigns each chip a seat-* class). Top seats stay
+   in the top bar, ordered left to right. Side seats leave the bar and sit at
+   the table's edges, level with the piles. position: fixed is relative to the
+   viewport, which .game-view fills exactly (100vw x 100dvh at 0,0).
+   ========================================================================== */
+.opponents-grid .opponent-card.seat-top-left { order: 1; }
+.opponents-grid .opponent-card.seat-top { order: 2; }
+.opponents-grid .opponent-card.seat-top-right { order: 3; }
+
+/* With two top seats, push them apart so they read as two corners. */
+.opponents-grid:has(.seat-top-left):has(.seat-top-right):not(:has(.seat-top)) {
+  gap: clamp(var(--spacing-8), 18vw, 240px);
+}
+
+.opponents-grid .opponent-card.seat-left,
+.opponents-grid .opponent-card.seat-right {
+  position: fixed;
+  top: 44%;
+  transform: translateY(-50%);
+  z-index: calc(var(--z-cards) + 2);
+}
+/* Clear the gauge rail on the left (it ends ~120px in on desktop). */
+.opponents-grid .opponent-card.seat-left { left: 136px; }
+.opponents-grid .opponent-card.seat-right { right: max(var(--spacing-6), env(safe-area-inset-right)); }
+
+/* Phones and tablets: the rail is replaced by the inline HUD, so side seats
+   hug the screen edge and shrink to stay clear of the piles. */
+@media (max-width: 768px) {
+  .opponents-grid .opponent-card.seat-left { left: max(6px, env(safe-area-inset-left)); }
+  .opponents-grid .opponent-card.seat-right { right: max(6px, env(safe-area-inset-right)); }
+  .opponents-grid .opponent-card.seat-left,
+  .opponents-grid .opponent-card.seat-right {
+    top: 46%;
+    min-width: 0;
+    max-width: 84px;
+    padding: 4px 6px;
+  }
+  .opponents-grid .opponent-card.seat-left .seat-avatar,
+  .opponents-grid .opponent-card.seat-right .seat-avatar { --av-size: 36px; }
+  .opponents-grid .opponent-card.seat-left .name,
+  .opponents-grid .opponent-card.seat-right .name { max-width: 70px; font-size: var(--text-xs); }
+  /* The top row only holds the top seats now, so it no longer needs to scroll. */
+  .opponents-grid { justify-content: center; }
+}
+
+/* Narrow phones: three seats will not fit beside the controls, so the two
+   top corners drop to the sides. Each side then holds two stacked seats
+   (corner above, side below) and only the middle seat stays on top. */
+@media (max-width: 520px) {
+  .opponents-grid .opponent-card.seat-top-left,
+  .opponents-grid .opponent-card.seat-top-right {
+    position: fixed;
+    top: 31%;
+    transform: translateY(-50%);
+    z-index: calc(var(--z-cards) + 2);
+    min-width: 0;
+    max-width: 84px;
+    padding: 4px 6px;
+  }
+  .opponents-grid .opponent-card.seat-top-left { left: max(6px, env(safe-area-inset-left)); }
+  .opponents-grid .opponent-card.seat-top-right { right: max(6px, env(safe-area-inset-right)); }
+  .opponents-grid .opponent-card.seat-top-left .seat-avatar,
+  .opponents-grid .opponent-card.seat-top-right .seat-avatar { --av-size: 36px; }
+  .opponents-grid .opponent-card.seat-top-left .name,
+  .opponents-grid .opponent-card.seat-top-right .name { max-width: 70px; font-size: var(--text-xs); }
+  .opponents-grid:has(.seat-top-left) .opponent-card.seat-left,
+  .opponents-grid:has(.seat-top-right) .opponent-card.seat-right { top: 52%; }
+}

@@ -177,3 +177,14 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
   "cannot change return type"). Made `polls.sql` re-runnable by adding drop-before-create
   for its policies. Verified on Postgres 15: a fresh run, two reruns inside one
   transaction, and the functional smoke test all pass.
+- **2026-11-07**: The live recheck passed: every SQL file is live, a finished solo game is
+  saved (it shows on the all-time board with the `/api/geo` country), and the
+  `/p/<code>` share preview shows the player's rank and stats.
+- **2026-11-07**: Seats around the table. `utils/seating.ts` (tested) orders opponents
+  in turn order from the next player and assigns seats: 1 top; 2 left and right; 3 left,
+  top, right; 4 adds the two top corners; 5 left, top-left, top, top-right, right. Both
+  game views tag each chip with `seat-*`, and CSS at the end of
+  `assets/game-shared.css` fixes the side seats at the table edges. On phones 520px
+  wide or narrower, the corner seats drop to the sides, two per side. The flying-card
+  back in `useCardAnimations.ts`, the dealer intro, the settings drawer, the game-over
+  modal and the canvas share image now use the new card back and fonts.

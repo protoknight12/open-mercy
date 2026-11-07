@@ -2120,7 +2120,7 @@ function copyLink() {
   border: none;
   border-radius: var(--radius-sm);
   padding: var(--spacing-2) var(--spacing-3);
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.8);
   text-align: left;
@@ -2695,7 +2695,7 @@ function copyLink() {
   border: 1px solid rgba(0, 243, 255, 0.22);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   text-align: left;
   cursor: pointer;

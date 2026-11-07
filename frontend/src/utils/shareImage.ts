@@ -70,7 +70,7 @@ function drawTitle(ctx: CanvasRenderingContext2D) {
     ctx.textBaseline = 'top'
 
     // OPEN — huge red glow
-    ctx.font = 'bold 240px "Black Ops One", Impact, sans-serif'
+    ctx.font = 'bold 240px "Lilita One", "Arial Rounded MT Bold", sans-serif'
     ctx.fillStyle = '#ff2a2a'
     ctx.shadowColor = 'rgba(255, 42, 42, 0.7)'
     ctx.shadowBlur = 40
@@ -79,7 +79,7 @@ function drawTitle(ctx: CanvasRenderingContext2D) {
     // MERCY — smaller, gold
     ctx.shadowColor = 'rgba(255, 204, 0, 0.55)'
     ctx.shadowBlur = 25
-    ctx.font = 'bold 96px "Black Ops One", Impact, sans-serif'
+    ctx.font = 'bold 96px "Lilita One", "Arial Rounded MT Bold", sans-serif'
     ctx.fillStyle = '#ffcc00'
     ctx.fillText('MERCY', W / 2, 400)
     ctx.restore()
@@ -93,7 +93,7 @@ function drawVerdict(ctx: CanvasRenderingContext2D, payload: ShareImagePayload) 
     // Verdict stamp
     ctx.translate(W / 2, 620)
     ctx.rotate(-0.05)
-    ctx.font = 'bold 180px "Black Ops One", Impact, sans-serif'
+    ctx.font = 'bold 180px "Lilita One", "Arial Rounded MT Bold", sans-serif'
     if (payload.isWinner) {
         ctx.fillStyle = '#ffcc00'
         ctx.shadowColor = 'rgba(255, 204, 0, 0.5)'
@@ -111,7 +111,7 @@ function drawVerdict(ctx: CanvasRenderingContext2D, payload: ShareImagePayload) 
     ctx.save()
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
-    ctx.font = '32px "Chakra Petch", sans-serif'
+    ctx.font = '32px "Nunito", sans-serif'
     ctx.fillStyle = '#a1a1aa'
     const subline = payload.isWinner
         ? `I broke ${payload.opponentName}.`
@@ -151,12 +151,12 @@ function drawStats(ctx: CanvasRenderingContext2D, payload: ShareImagePayload) {
         // Value
         ctx.textAlign = 'center'
         ctx.textBaseline = 'top'
-        ctx.font = 'bold 140px "Black Ops One", Impact, sans-serif'
+        ctx.font = 'bold 140px "Lilita One", "Arial Rounded MT Bold", sans-serif'
         ctx.fillStyle = payload.isWinner ? '#ffcc00' : '#e6e6e6'
         ctx.fillText(cell.value, x + cellW / 2, y + 24)
 
         // Label
-        ctx.font = '24px "Chakra Petch", sans-serif'
+        ctx.font = '24px "Nunito", sans-serif'
         ctx.fillStyle = '#52525b'
         ctx.fillText(cell.label, x + cellW / 2, y + cellH - 50)
     })
@@ -168,11 +168,11 @@ function drawFooter(ctx: CanvasRenderingContext2D, payload: { siteUrl: string })
     ctx.textAlign = 'center'
     ctx.textBaseline = 'bottom'
 
-    ctx.font = '28px "Chakra Petch", sans-serif'
+    ctx.font = '28px "Nunito", sans-serif'
     ctx.fillStyle = '#a1a1aa'
     ctx.fillText('PLAY FREE', W / 2, H - 100)
 
-    ctx.font = 'bold 34px "Chakra Petch", sans-serif'
+    ctx.font = 'bold 34px "Nunito", sans-serif'
     ctx.fillStyle = '#00f3ff'
     ctx.fillText(payload.siteUrl, W / 2, H - 60)
     ctx.restore()
@@ -276,7 +276,7 @@ function drawDailyHead(ctx: CanvasRenderingContext2D, p: DailyShareImagePayload)
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
 
-    ctx.font = '30px "Chakra Petch", sans-serif'
+    ctx.font = '30px "Nunito", sans-serif'
     ctx.fillStyle = '#a1a1aa'
     ctx.letterSpacing = '6px'
     ctx.fillText(`DAILY DEAL · ${p.date}`, W / 2, 545)
@@ -285,7 +285,7 @@ function drawDailyHead(ctx: CanvasRenderingContext2D, p: DailyShareImagePayload)
     const headline =
         p.result === 'won' ? `CLEARED IN ${p.turns}` :
         p.result === 'eliminated' ? 'MERCY GOT ME' : 'DIDN’T CLEAR IT'
-    ctx.font = 'bold 104px "Black Ops One", Impact, sans-serif'
+    ctx.font = 'bold 104px "Lilita One", "Arial Rounded MT Bold", sans-serif'
     ctx.fillStyle = p.result === 'won' ? '#ffcc00' : '#ff2a2a'
     ctx.shadowColor = p.result === 'won' ? 'rgba(255,204,0,0.45)' : 'rgba(255,42,42,0.45)'
     ctx.shadowBlur = 30
@@ -326,7 +326,7 @@ function drawDailyLegend(ctx: CanvasRenderingContext2D, y: number) {
         ['stacked', 'STACKED ON'],
     ]
     ctx.save()
-    ctx.font = '26px "Chakra Petch", sans-serif'
+    ctx.font = '26px "Nunito", sans-serif'
     ctx.textBaseline = 'middle'
 
     const swatch = 24
@@ -351,7 +351,7 @@ function drawDailyPercentile(ctx: CanvasRenderingContext2D, pct: number, y: numb
     ctx.save()
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.font = 'bold 42px "Chakra Petch", sans-serif'
+    ctx.font = 'bold 42px "Nunito", sans-serif'
     ctx.fillStyle = '#00f3ff'
     ctx.fillText(`TOP ${pct}% TODAY`, W / 2, y)
     ctx.restore()

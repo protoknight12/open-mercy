@@ -10,6 +10,7 @@
         :key="player.id"
         :ref="(el) => { if (el) opponentRefs[player.id] = (el as any).$el }"
         :uid="player.id"
+        :class="seatOf[player.id]"
         :name="player.name"
         :badge="seatBadge(player.id)"
         :card-count="player.hand.length"
@@ -197,6 +198,7 @@ import { useGameStore } from '../../stores/gameStore'
 import { useAuthStore } from '../../stores/authStore'
 import { canPlayCard } from '../../utils/gameRules'
 import { countByColor } from '../../utils/gameHelpers'
+import { opponentsInSeatOrder, seatClass, seatSlots } from '../../utils/seating'
 import { botBadge } from '../../utils/badges'
 import { BOT_LADDER, WARM_UP_GAMES } from '@engine/bot'
 import type { Card as CardType, CardColor } from '../../types/card'
@@ -299,7 +301,12 @@ useHeatWiring(() => store.drawStack, () => myPlayer.value?.hand.length ?? 0)
 useWildFloodWiring(() => store.currentColor, () => store.topCard?.color)
 // Stack cam: light up while the draw stack is at cinematic size
 useStackCamWiring(() => store.drawStack, () => store.currentColor)
-const opponents = computed(() => store.players.filter(p => p.id !== myPlayerId))
+// Opponents sit around the table in turn order, starting with the next player.
+const opponents = computed(() => opponentsInSeatOrder(store.players, myPlayerId, p => p.id))
+const seatOf = computed(() => {
+  const slots = seatSlots(opponents.value.length)
+  return Object.fromEntries(opponents.value.map((p, i) => [p.id, seatClass(slots[i]!)]))
+})
 
 // Bots wear a cosmetic badge tied to their ladder rung, so a solo seat still
 // reads as "ranked". The human's real badge shows on their own HUD.

@@ -451,7 +451,7 @@ function confettiStyle(i: number) {
   padding: 2rem 1.75rem 1.5rem;
   text-align: center;
   position: relative;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
 }
 
 .is-win .modal-card {
@@ -476,7 +476,7 @@ function confettiStyle(i: number) {
 }
 
 .stamp h1 {
-  font-family: 'Black Ops One', 'Impact', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.4rem, 8vw, 3.6rem);
   letter-spacing: 0.06em;
   line-height: 0.95;
@@ -520,7 +520,7 @@ function confettiStyle(i: number) {
   padding: 0.25rem 0.4rem;
 }
 .stat-value {
-  font-family: 'Black Ops One', 'Impact', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   color: #e6e6e6;
   line-height: 1;
@@ -537,7 +537,7 @@ function confettiStyle(i: number) {
 /* Primary CTA — the obvious next action, dominant and glowing */
 .cta-primary {
   width: 100%;
-  font-family: 'Black Ops One', 'Impact', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   letter-spacing: 0.15em;
   padding: 1rem 1rem;
@@ -577,7 +577,7 @@ function confettiStyle(i: number) {
 }
 .share-btn {
   flex: 1;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -636,7 +636,7 @@ function confettiStyle(i: number) {
   gap: 0.35rem;
 }
 .daily-nudge-streak {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -650,7 +650,7 @@ function confettiStyle(i: number) {
   color: rgba(255, 255, 255, 0.55);
 }
 .daily-nudge-btn {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -700,7 +700,7 @@ function confettiStyle(i: number) {
   color: rgba(255, 255, 255, 0.55);
 }
 .claim-nudge-btn {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -728,7 +728,7 @@ function confettiStyle(i: number) {
 }
 .rematch-hint {
   margin: 0.6rem 0 0;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.45);
@@ -745,7 +745,7 @@ function confettiStyle(i: number) {
 }
 
 .add-label {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.58rem;
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.35);
@@ -761,7 +761,7 @@ function confettiStyle(i: number) {
   border: 1px solid rgba(0, 243, 255, 0.3);
   border-radius: 999px;
   color: rgba(0, 243, 255, 0.9);
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.68rem;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -792,7 +792,7 @@ function confettiStyle(i: number) {
   background: none;
   border: none;
   cursor: pointer;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   color: #0d2a6b;
