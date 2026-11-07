@@ -36,7 +36,7 @@
             <li>Hold 25 cards and you are out.</li>
             <li>A 7 swaps hands, a 0 passes every hand along.</li>
             <li>Color Roulette makes the next player pick a color, then draw until they hit it.</li>
-            <li>Forget to call MERCY! and it can cost you 10 cards.</li>
+            <li>Forget to call MERCY! and getting caught costs you 2 cards.</li>
           </ul>
         </div>
 
