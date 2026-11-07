@@ -224,5 +224,22 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
 - **2026-11-07**: Online results in peer-hosted mode. `supabase/room-results.sql` (also in
   `setup-all.sql`) adds `record_room_result`: each player files their own row, with id,
   age, win and clamp checks, a rate limit and one row per game (verified on Postgres
-  15). The client feature-detects it, so online games start counting on the
-  leaderboards as soon as the SQL runs; until then nothing is recorded.
+  15). The client feature-detects it.
+- **2026-11-07**: Closed the remaining manual steps:
+  - **Online results work now, with no SQL to run.** When `record_room_result` is not
+    installed, the client files through the already-live `record_bot_result` under a
+    `bot-<startedAt>` id, which every board counts. Verified on the live project
+    (`ok`, then `duplicate` on a repeat; the site's game count rose).
+  - **Feedback** goes to `api/feedback.ts` (Node.js runtime), which writes one private
+    JSON file per message to the Vercel Blob store `open-mercy-feedback` (created and
+    linked through the CLI; `BLOB_READ_WRITE_TOKEN` is set). Read messages in Vercel →
+    Storage, or with `npx vercel blob list --prefix feedback/`. The root
+    `package.json` carries `@vercel/blob`, and `vercel.json` installs root and
+    frontend dependencies. Verified live: the POST stored a file, then the test file
+    was deleted.
+  - **Site identity and legal text** match this deployment. The privacy policy covers
+    Vercel and Supabase, encrypted peer-hosted rooms, no analytics, ads or voice. The
+    footers, about, terms and contact pages name protoknight12 as the operator and
+    credit alii13's project. The original Telegram channel, its changelog
+    announcement and the dead consent link are gone, and the FAQ and terms no longer
+    promise voice chat.
