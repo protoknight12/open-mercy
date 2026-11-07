@@ -1,4 +1,4 @@
-name = "uno-game-server"
+name = "open-mercy-game-server"
 main = "src/index.ts"
 compatibility_date = "2026-04-28"
 
@@ -10,25 +10,22 @@ class_name = "GameRoomDO"
 tag = "v1"
 new_sqlite_classes = ["GameRoomDO"]
 
-# Supabase project used for token introspection. This is the publishable key:
-# public by design (it ships in every frontend bundle), and not a secret.
+# Supabase project used for token introspection (protoknight12/open-mercy's
+# project). This is the publishable key: public by design, since it ships in
+# every frontend bundle, and not a secret.
 #
-# It replaced the legacy `anon` JWT so the legacy key could be disabled. A
-# frozen copy of the frontend was running on someone else's domain against this
-# project, and its bundle carries the old key. Unlike the legacy key, this one
-# rotates without touching the JWT secret, so a future lockout costs nobody
-# their session.
+# Introspection fails closed: if this URL/key pair is wrong, verifySupabaseToken
+# returns null and nobody can create or join a room.
 #
-# DEPLOY THIS WORKER BEFORE DISABLING THE LEGACY KEY. Introspection fails
-# closed: a 401 here means verifySupabaseToken returns null and nobody can
-# create or join a room.
-# RealtimeKit: account id + preset name are not secrets; the app id and API
-# token are wrangler secrets (REALTIMEKIT_APP_ID, REALTIMEKIT_API_TOKEN) —
-# without them /health reports voice:false and voice-join answers
-# voice-unavailable.
+# ALLOWED_ORIGINS: browser origins that may call the HTTP API (see src/cors.ts).
+# One `*` per entry matches a run of letters, digits and hyphens.
+#
+# Voice chat (RealtimeKit) is off until REALTIMEKIT_ACCOUNT_ID plus the
+# REALTIMEKIT_APP_ID and REALTIMEKIT_API_TOKEN secrets are set; without them
+# /health reports voice:false and voice-join answers voice-unavailable.
 [vars]
-SUPABASE_URL = "https://djzqoccutacfueuadflw.supabase.co"
-SUPABASE_ANON_KEY = "sb_publishable_YcRHugf7xAe9xGCquvAxyQ_85sBcPsi"
-REALTIMEKIT_ACCOUNT_ID = "1d8c38c6c9efdd5a2d4bf620eb058f9d"
+SUPABASE_URL = "https://virnfnbbakymsdxyrbuy.supabase.co"
+SUPABASE_ANON_KEY = "sb_publishable_KkuEgQrv73KP1fpqUDXyaw_m5aUBmNU"
+ALLOWED_ORIGINS = "https://open-mercy.vercel.app, https://open-mercy-protoknight12s-projects.vercel.app, https://open-mercy-*-protoknight12s-projects.vercel.app"
 REALTIMEKIT_PRESET = "group_call_participant"
 REALTIMEKIT_HOST_PRESET = "group_call_host"

@@ -14,6 +14,7 @@ import { ROOM_CODE_ALPHABET, isRoomCode, normalizeRoomCode } from '../../shared/
 import { canSeat, MAX_PLAYERS } from './seats'
 import { autoStartTick, autoStartBump, autoStartBumpsLeft, AUTO_START_MIN_PLAYERS, type AutoStartState } from './autoStart'
 import { chatAllowed } from './chatLimit'
+import { allowedOrigin } from './cors'
 import { sendRoomInvite } from './invites'
 import { quickChatPhrase } from '../../shared/quickChat'
 import type { StackingMode } from '../../shared/engine'
@@ -22,6 +23,8 @@ interface Env extends AuthEnv, VoiceEnv {
     ROOM: DurableObjectNamespace
     /** Optional wrangler secret; enables server-side game_results persistence. */
     SUPABASE_SERVICE_KEY?: string
+    /** Comma-separated browser origins allowed to call the HTTP API (see cors.ts). */
+    ALLOWED_ORIGINS?: string
 }
 
 const CONTINENT_HINTS: Record<string, string> = {
@@ -80,17 +83,9 @@ async function locateRoom(env: Env, code: string): Promise<DurableObjectStub | n
     return Promise.any(probes).catch(() => null)
 }
 
-// Browser origins allowed to call the HTTP endpoints (WebSockets don't
-// preflight). Allowlist, not '*': the game's domains plus local dev.
-function corsOrigin(req: Request): string | null {
-    const origin = req.headers.get('Origin')
-    if (!origin) return null
-    if (origin === 'https://uno-no-mercy.com' || origin === 'https://www.uno-no-mercy.com') return origin
-    if (origin === 'https://open-mercy.com' || origin === 'https://www.open-mercy.com') return origin
-    if (origin === 'https://uno-no-mercy.pages.dev') return origin
-    if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return origin
-    if (/^https:\/\/[a-z0-9-]+\.uno-no-mercy\.pages\.dev$/.test(origin)) return origin
-    return null
+// Browser origins allowed to call the HTTP endpoints: see cors.ts.
+function corsOrigin(req: Request, env: Env): string | null {
+    return allowedOrigin(req.headers.get('Origin'), env.ALLOWED_ORIGINS)
 }
 
 /** Accept the socket just long enough to say the room is gone, then close. */
@@ -103,8 +98,8 @@ function roomGoneSocket(): Response {
     return new Response(null, { status: 101, webSocket: pair[0] })
 }
 
-function withCors(res: Response, req: Request): Response {
-    const origin = corsOrigin(req)
+function withCors(res: Response, req: Request, env: Env): Response {
+    const origin = corsOrigin(req, env)
     if (!origin) return res
     const out = new Response(res.body, res)
     out.headers.set('Access-Control-Allow-Origin', origin)
@@ -118,7 +113,7 @@ export default {
         const hint = CONTINENT_HINTS[(req.cf?.continent as string) ?? '']
 
         if (req.method === 'OPTIONS') {
-            const origin = corsOrigin(req)
+            const origin = corsOrigin(req, env)
             if (!origin) return new Response(null, { status: 403 })
             return new Response(null, {
                 headers: {
@@ -136,11 +131,11 @@ export default {
         if (req.method === 'POST' && url.pathname === '/rooms') {
             const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '')
             const creator = await verifySupabaseToken(token, env)
-            if (!creator) return withCors(new Response('unauthorized', { status: 401 }), req)
+            if (!creator) return withCors(new Response('unauthorized', { status: 401 }), req, env)
             const allowed = await directoryStub(env).fetch('https://do/create-allow', {
                 method: 'POST', body: JSON.stringify({ userId: creator.userId }),
             })
-            if (!(await allowed.json<boolean>())) return withCors(new Response('too many rooms', { status: 429 }), req)
+            if (!(await allowed.json<boolean>())) return withCors(new Response('too many rooms', { status: 429 }), req, env)
             const opts = await req.json<{ public?: boolean; stackingMode?: string }>().catch(() => ({} as { public?: boolean; stackingMode?: string }))
             const stackingMode: StackingMode = isStackingMode(opts.stackingMode) ? opts.stackingMode : 'official'
             const code = generateRoomCode()
@@ -164,12 +159,12 @@ export default {
             if (opts.public) {
                 await directoryStub(env).fetch('https://do/dir-register', { method: 'POST', body: JSON.stringify({ code }) })
             }
-            return withCors(Response.json({ code, placementMs: winner.ms }), req)
+            return withCors(Response.json({ code, placementMs: winner.ms }), req, env)
         }
 
         if (url.pathname === '/health') {
             console.log('health check, secret bound:', !!env.SUPABASE_SERVICE_KEY)
-            return withCors(Response.json({ ok: true, resultsPersistence: !!env.SUPABASE_SERVICE_KEY, voice: voiceConfigured(env) }), req)
+            return withCors(Response.json({ ok: true, resultsPersistence: !!env.SUPABASE_SERVICE_KEY, voice: voiceConfigured(env) }), req, env)
         }
 
         // Open public rooms for quick match. Stays a bare array of codes:
@@ -177,14 +172,14 @@ export default {
         // the frontend.
         if (url.pathname === '/public-rooms') {
             const res = await directoryStub(env).fetch('https://do/dir-list')
-            return withCors(Response.json(await res.json()), req)
+            return withCors(Response.json(await res.json()), req, env)
         }
 
         // Same directory, enough detail to render a table without a round trip
         // per room. Carries no player names by design — see directory.ts.
         if (url.pathname === '/live-tables') {
             const res = await directoryStub(env).fetch('https://do/dir-tables')
-            return withCors(Response.json(await res.json()), req)
+            return withCors(Response.json(await res.json()), req, env)
         }
 
         // Join a room over WebSocket: /room/CODE/ws
