@@ -188,3 +188,28 @@ Env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (see `frontend/.env.example`)
   wide or narrower, the corner seats drop to the sides, two per side. The flying-card
   back in `useCardAnimations.ts`, the dealer intro, the settings drawer, the game-over
   modal and the canvas share image now use the new card back and fonts.
+- **2026-11-07**: Fixed "Could not reach the game server". The original Worker only
+  allowed the original author's domains and checked tokens against their Supabase
+  project, so online play could never work on this deployment. Two fixes:
+  1. `game-server/`: CORS now comes from the `ALLOWED_ORIGINS` var (`src/cors.ts`,
+     tested), the vars point at this project, and the Worker was renamed
+     `open-mercy-game-server`. A temporary-account deploy bridged the gap but expires
+     unclaimed after 60 minutes.
+  2. **Peer-hosted multiplayer** (`frontend/src/p2p/`, now the default:
+     `VITE_GAME_SERVER_URL=p2p` on Vercel). The room creator's browser runs the same
+     `GameRoomDO` code over storage, alarm and socket shims, with end-to-end
+     encrypted frames on Supabase Realtime and quick match on Realtime presence. Needs
+     no server or login. Verified with two identities: private room create, join by
+     link, start, moves both ways, reconnect after reload, turn-clock auto-play, and
+     quick match finding a public room. Voice is hidden in this mode.
+- **2026-11-07**: Removed the original author's Google Analytics, Google Ads and
+  AdSense from `index.html` and all 19 static pages, and emptied `ads.txt`: visitors
+  were being tracked into, and ads paid to, someone else's accounts. A guard test now
+  blocks those tags from coming back. The privacy policy page still describes GA and
+  AdSense; rewriting legal text is left to the owner.
+- **2026-11-07**: The feedback form posted to the original author's email and inserted
+  into a `feedback` table that didn't exist. The email is gone; the form now falls back
+  to a prefilled GitHub issue while the table is missing; the table is added to
+  `00-base-schema.sql` / `setup-all.sql` (run it to collect feedback in Supabase).
+- **2026-11-07**: Fixed the waiting room seat counter ("/ 20" → "/ 6") and restyled the
+  static guide pages (`rules/guide.css`) to the Sky Arena theme.
